@@ -1,0 +1,388 @@
+[
+    {
+        "id": "0ddaa4b089a41228",
+        "type": "tab",
+        "label": "ИВЭ Modbus-Read",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f1a1b1c1d1e1f1a1",
+        "type": "tab",
+        "label": "TRASSIR RTSP capture",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "5da01c52b4b66842",
+        "type": "modbus-client",
+        "name": "modbus client",
+        "clienttype": "simpleser",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "201.204.210.10",
+        "tcpPort": 502,
+        "tcpType": "DEFAULT",
+        "serialPort": "COM3",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "115200",
+        "serialDatabits": 8,
+        "serialStopbits": 1,
+        "serialParity": "none",
+        "serialConnectionDelay": 100,
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
+        "id": "f8c6b094974bfa97",
+        "type": "serial-port",
+        "d": true,
+        "name": "",
+        "serialport": "COM3",
+        "serialbaud": "115200",
+        "databits": 8,
+        "parity": "none",
+        "stopbits": 1,
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "1",
+        "bin": "bin",
+        "out": "count",
+        "addchar": "",
+        "responsetimeout": 10000
+    },
+    {
+        "id": "2ea045ed18342d31",
+        "type": "modbus-read",
+        "z": "0ddaa4b089a41228",
+        "name": "Modbus-Read",
+        "topic": "",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "0",
+        "quantity": "125",
+        "rate": "1000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "server": "5da01c52b4b66842",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "a6152c5476ec5893",
+                "98304439b5ebd360"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "a6152c5476ec5893",
+        "type": "debug",
+        "z": "0ddaa4b089a41228",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "98304439b5ebd360",
+        "type": "http request",
+        "z": "0ddaa4b089a41228",
+        "d": true,
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://drill.greact.online/ingest",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 470,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a1",
+        "type": "inject",
+        "z": "f1a1b1c1d1e1f1a1",
+        "name": "start stream",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 100,
+        "wires": [
+            [
+                "a2"
+            ]
+        ]
+    },
+    {
+        "id": "a2",
+        "type": "function",
+        "z": "f1a1b1c1d1e1f1a1",
+        "name": "build ffmpeg args",
+        "func": "msg.payload = '-hide_banner -loglevel error -rtsp_transport tcp ' +\n    '-i \"rtsp://admin:admin@192.168.0.11:554/live/main\" ' +\n    '-an -c copy -f mpegts pipe:1';\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 100,
+        "wires": [
+            [
+                "a3"
+            ]
+        ]
+    },
+    {
+        "id": "a3",
+        "type": "exec",
+        "z": "f1a1b1c1d1e1f1a1",
+        "command": "ffmpeg",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "ffmpeg spawn",
+        "x": 560,
+        "y": 100,
+        "wires": [
+            [
+                "a4",
+                "a7"
+            ],
+            [
+                "a5"
+            ],
+            [
+                "a6"
+            ]
+        ]
+    },
+    {
+        "id": "a4",
+        "type": "function",
+        "z": "f1a1b1c1d1e1f1a1",
+        "name": "chunk info",
+        "func": "if (Buffer.isBuffer(msg.payload)) {\n    msg.chunkLength = msg.payload.length;\n    msg.payload = {\n        chunkLength: msg.chunkLength,\n        headHex: msg.payload.subarray(0, Math.min(32, msg.payload.length)).toString('hex')\n    };\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 770,
+        "y": 80,
+        "wires": [
+            [
+                "a8"
+            ]
+        ]
+    },
+    {
+        "id": "a5",
+        "type": "debug",
+        "z": "f1a1b1c1d1e1f1a1",
+        "name": "ffmpeg stderr/log",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 790,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "a6",
+        "type": "debug",
+        "z": "f1a1b1c1d1e1f1a1",
+        "name": "ffmpeg rc",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 760,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "a7",
+        "type": "delay",
+        "z": "f1a1b1c1d1e1f1a1",
+        "name": "sample 1/5 sec",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 760,
+        "y": 220,
+        "wires": [
+            [
+                "a9"
+            ]
+        ]
+    },
+    {
+        "id": "a8",
+        "type": "debug",
+        "z": "f1a1b1c1d1e1f1a1",
+        "name": "stream chunk meta",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 990,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "a9",
+        "type": "http request",
+        "z": "f1a1b1c1d1e1f1a1",
+        "name": "send chunk to cloud",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://YOUR-CLOUD-ENDPOINT.example/upload-chunk",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 990,
+        "y": 220,
+        "wires": [
+            [
+                "b1"
+            ]
+        ]
+    },
+    {
+        "id": "b1",
+        "type": "debug",
+        "z": "f1a1b1c1d1e1f1a1",
+        "name": "cloud response",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1200,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "dfbb81298270d1d0",
+        "type": "exec",
+        "z": "f1a1b1c1d1e1f1a1",
+        "command": "taskkill",
+        "addpay": "",
+        "append": "/IM ffmpeg.exe /F",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 310,
+        "y": 220,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "7cd54e61e1944119",
+        "type": "inject",
+        "z": "f1a1b1c1d1e1f1a1",
+        "name": "stop stream",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 220,
+        "wires": [
+            [
+                "dfbb81298270d1d0"
+            ]
+        ]
+    }
+]
