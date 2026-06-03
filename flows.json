@@ -99,7 +99,7 @@
         "method": "GET",
         "ret": "txt",
         "paytoqs": "ignore",
-        "url": "https://drill.greact.online/ingest",
+        "url": "https://drill.greact.online/ingest?id=data-edge5-modbus-v2",
         "tls": "",
         "persist": false,
         "proxy": "",
@@ -137,8 +137,8 @@
         "ioFile": "",
         "useIOForPayload": false,
         "emptyMsgOnFail": false,
-        "x": 130,
-        "y": 60,
+        "x": 210,
+        "y": 100,
         "wires": [
             [
                 "a6152c5476ec5893",
@@ -146,6 +146,47 @@
             ],
             []
         ]
+    },
+    {
+        "id": "926f26f899a87b35",
+        "type": "inject",
+        "z": "0ddaa4b089a41228",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "[1,2,3,4]",
+        "payloadType": "json",
+        "x": 180,
+        "y": 240,
+        "wires": [
+            [
+                "d2d346d60a52fac5"
+            ]
+        ]
+    },
+    {
+        "id": "d2d346d60a52fac5",
+        "type": "debug",
+        "z": "0ddaa4b089a41228",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 280,
+        "wires": []
     },
     {
         "id": "a1",
@@ -313,7 +354,7 @@
         "method": "POST",
         "ret": "txt",
         "paytoqs": "ignore",
-        "url": "https://YOUR-CLOUD-ENDPOINT.example/upload-chunk",
+        "url": "https://YOUR-CLOUD-ENDPOINT.example/ingest?id=data-edge5-video-v1",
         "tls": "",
         "persist": false,
         "proxy": "",
