@@ -2,7 +2,10 @@
     "name": "EDGE5",
     "description": "A Node-RED Project",
     "version": "0.0.1",
-    "dependencies": {},
+    "dependencies": {
+        "node-red-contrib-modbus": "^5.45.2",
+        "node-red-node-serialport": "^2.0.3"
+    },
     "node-red": {
         "settings": {
             "flowFile": "flows.json",
