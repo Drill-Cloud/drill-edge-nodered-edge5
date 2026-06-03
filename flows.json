@@ -15,6 +15,14 @@
         "info": ""
     },
     {
+        "id": "9e06d9ab05f02898",
+        "type": "tab",
+        "label": "Эксперименты",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "5da01c52b4b66842",
         "type": "modbus-client",
         "name": "modbus client",
@@ -138,16 +146,6 @@
             ],
             []
         ]
-    },
-    {
-        "id": "41d329f3910c23cf",
-        "type": "comment",
-        "z": "0ddaa4b089a41228",
-        "name": "",
-        "info": "Комментарий",
-        "x": 230,
-        "y": 320,
-        "wires": []
     },
     {
         "id": "a1",
