@@ -66,40 +66,6 @@
         "responsetimeout": 10000
     },
     {
-        "id": "2ea045ed18342d31",
-        "type": "modbus-read",
-        "z": "0ddaa4b089a41228",
-        "name": "Modbus-Read",
-        "topic": "",
-        "showStatusActivities": false,
-        "logIOActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "1",
-        "dataType": "HoldingRegister",
-        "adr": "0",
-        "quantity": "125",
-        "rate": "1000",
-        "rateUnit": "ms",
-        "delayOnStart": false,
-        "enableDeformedMessages": false,
-        "startDelayTime": "",
-        "server": "5da01c52b4b66842",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "x": 130,
-        "y": 60,
-        "wires": [
-            [
-                "a6152c5476ec5893",
-                "98304439b5ebd360"
-            ],
-            []
-        ]
-    },
-    {
         "id": "a6152c5476ec5893",
         "type": "debug",
         "z": "0ddaa4b089a41228",
@@ -138,6 +104,50 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "2ea045ed18342d31",
+        "type": "modbus-read",
+        "z": "0ddaa4b089a41228",
+        "name": "Modbus-Read",
+        "topic": "",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "0",
+        "quantity": "125",
+        "rate": "1000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "server": "5da01c52b4b66842",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "a6152c5476ec5893",
+                "98304439b5ebd360"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "41d329f3910c23cf",
+        "type": "comment",
+        "z": "0ddaa4b089a41228",
+        "name": "",
+        "info": "Комментарий",
+        "x": 230,
+        "y": 320,
+        "wires": []
     },
     {
         "id": "a1",
