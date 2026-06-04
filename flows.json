@@ -114,43 +114,10 @@
         ]
     },
     {
-        "id": "2ea045ed18342d31",
-        "type": "modbus-read",
-        "z": "0ddaa4b089a41228",
-        "name": "Modbus-Read",
-        "topic": "",
-        "showStatusActivities": false,
-        "logIOActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "1",
-        "dataType": "HoldingRegister",
-        "adr": "0",
-        "quantity": "125",
-        "rate": "1000",
-        "rateUnit": "ms",
-        "delayOnStart": false,
-        "enableDeformedMessages": false,
-        "startDelayTime": "",
-        "server": "5da01c52b4b66842",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "x": 210,
-        "y": 100,
-        "wires": [
-            [
-                "a6152c5476ec5893",
-                "98304439b5ebd360"
-            ],
-            []
-        ]
-    },
-    {
         "id": "926f26f899a87b35",
         "type": "inject",
         "z": "0ddaa4b089a41228",
+        "d": true,
         "name": "",
         "props": [
             {
@@ -189,6 +156,40 @@
         "wires": []
     },
     {
+        "id": "2ea045ed18342d31",
+        "type": "modbus-read",
+        "z": "0ddaa4b089a41228",
+        "name": "Modbus-Read",
+        "topic": "",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "0",
+        "quantity": "125",
+        "rate": "1000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "server": "5da01c52b4b66842",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "x": 210,
+        "y": 100,
+        "wires": [
+            [
+                "a6152c5476ec5893",
+                "98304439b5ebd360"
+            ],
+            []
+        ]
+    },
+    {
         "id": "a1",
         "type": "inject",
         "z": "f1a1b1c1d1e1f1a1",
@@ -217,15 +218,15 @@
         "id": "a2",
         "type": "function",
         "z": "f1a1b1c1d1e1f1a1",
-        "name": "build ffmpeg args",
-        "func": "msg.payload = '-hide_banner -loglevel error -rtsp_transport tcp ' +\n    '-i \"rtsp://admin:admin@192.168.0.11:554/live/main\" ' +\n    '-an -c copy -f mpegts pipe:1';\nreturn msg;",
+        "name": "prepare ffmpeg args",
+        "func": "msg.payload = '-hide_banner -loglevel error -rtsp_transport tcp ' +\n    '-i \"rtsp://127.0.0.1:8554/webcam\" ' +\n    '-an -c copy -f mpegts pipe:1';\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 340,
+        "x": 360,
         "y": 100,
         "wires": [
             [
@@ -245,19 +246,15 @@
         "winHide": false,
         "oldrc": false,
         "name": "ffmpeg spawn",
-        "x": 560,
+        "x": 600,
         "y": 100,
         "wires": [
             [
                 "a4",
                 "a7"
             ],
-            [
-                "a5"
-            ],
-            [
-                "a6"
-            ]
+            [],
+            []
         ]
     },
     {
@@ -268,43 +265,13 @@
         "func": "if (Buffer.isBuffer(msg.payload)) {\n    msg.chunkLength = msg.payload.length;\n    msg.payload = {\n        chunkLength: msg.chunkLength,\n        headHex: msg.payload.subarray(0, Math.min(32, msg.payload.length)).toString('hex')\n    };\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 770,
+        "x": 890,
         "y": 80,
         "wires": [
             [
                 "a8"
             ]
         ]
-    },
-    {
-        "id": "a5",
-        "type": "debug",
-        "z": "f1a1b1c1d1e1f1a1",
-        "name": "ffmpeg stderr/log",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "x": 790,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "a6",
-        "type": "debug",
-        "z": "f1a1b1c1d1e1f1a1",
-        "name": "ffmpeg rc",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "x": 760,
-        "y": 160,
-        "wires": []
     },
     {
         "id": "a7",
@@ -323,8 +290,8 @@
         "drop": true,
         "allowrate": false,
         "outputs": 1,
-        "x": 760,
-        "y": 220,
+        "x": 860,
+        "y": 160,
         "wires": [
             [
                 "a9"
@@ -342,7 +309,9 @@
         "tostatus": true,
         "complete": "payload",
         "targetType": "msg",
-        "x": 990,
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1130,
         "y": 80,
         "wires": []
     },
@@ -350,6 +319,7 @@
         "id": "a9",
         "type": "http request",
         "z": "f1a1b1c1d1e1f1a1",
+        "d": true,
         "name": "send chunk to cloud",
         "method": "POST",
         "ret": "txt",
@@ -362,8 +332,8 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 990,
-        "y": 220,
+        "x": 1090,
+        "y": 160,
         "wires": [
             [
                 "b1"
@@ -381,8 +351,8 @@
         "tostatus": true,
         "complete": "payload",
         "targetType": "msg",
-        "x": 1200,
-        "y": 220,
+        "x": 1300,
+        "y": 160,
         "wires": []
     },
     {
@@ -390,15 +360,15 @@
         "type": "exec",
         "z": "f1a1b1c1d1e1f1a1",
         "command": "taskkill",
-        "addpay": "",
-        "append": "/IM ffmpeg.exe /F",
+        "addpay": "payload",
+        "append": "/T /F",
         "useSpawn": "false",
         "timer": "",
         "winHide": false,
         "oldrc": false,
-        "name": "",
-        "x": 310,
-        "y": 220,
+        "name": "ffmpeg task kill",
+        "x": 600,
+        "y": 380,
         "wires": [
             [],
             [],
@@ -426,11 +396,65 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 110,
-        "y": 220,
+        "x": 130,
+        "y": 380,
+        "wires": [
+            [
+                "5e118756b72c6f1a"
+            ]
+        ]
+    },
+    {
+        "id": "718c866ef4aacbe3",
+        "type": "function",
+        "z": "f1a1b1c1d1e1f1a1",
+        "name": "get process identifier",
+        "func": "if (msg.status && msg.status.text) {\n    const m = msg.status.text.match(/^pid:(\\d+)/);\n    if (m) {\n        flow.set(\"ffmpeg-pid\", Number(m[1]));\n    }\n}\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5e118756b72c6f1a",
+        "type": "function",
+        "z": "f1a1b1c1d1e1f1a1",
+        "name": "prepare task killer args",
+        "func": "const pid = flow.get(\"ffmpeg-pid\");\nif (!pid) {\n    node.warn(\"ffmpeg-pid not set, skip taskkill\");\n    return null;\n}\nmsg.pid = pid;\nmsg.payload = `/PID ${pid}`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 380,
         "wires": [
             [
                 "dfbb81298270d1d0"
+            ]
+        ]
+    },
+    {
+        "id": "048a38e744556fc1",
+        "type": "status",
+        "z": "f1a1b1c1d1e1f1a1",
+        "name": "get stream status",
+        "scope": [
+            "a3"
+        ],
+        "x": 120,
+        "y": 240,
+        "wires": [
+            [
+                "718c866ef4aacbe3"
             ]
         ]
     }
