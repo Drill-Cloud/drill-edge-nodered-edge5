@@ -74,49 +74,41 @@
         "responsetimeout": 10000
     },
     {
-        "id": "a6152c5476ec5893",
-        "type": "debug",
-        "z": "0ddaa4b089a41228",
-        "name": "debug 2",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 460,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "98304439b5ebd360",
-        "type": "http request",
-        "z": "0ddaa4b089a41228",
-        "d": true,
+        "id": "349d80dbd3e83831",
+        "type": "mqtt-broker",
         "name": "",
-        "method": "GET",
-        "ret": "txt",
-        "paytoqs": "ignore",
-        "url": "https://drill.greact.online/ingest?id=data-edge5-modbus-v2",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "",
-        "senderr": false,
-        "headers": [],
-        "x": 470,
-        "y": 120,
-        "wires": [
-            []
-        ]
+        "broker": "localhost",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "5",
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
     },
     {
         "id": "2ea045ed18342d31",
         "type": "modbus-read",
         "z": "0ddaa4b089a41228",
+        "d": true,
         "name": "Modbus-Read",
         "topic": "",
         "showStatusActivities": false,
@@ -140,10 +132,7 @@
         "x": 210,
         "y": 100,
         "wires": [
-            [
-                "a6152c5476ec5893",
-                "98304439b5ebd360"
-            ],
+            [],
             []
         ]
     },
@@ -188,11 +177,12 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 430,
+        "x": 500,
         "y": 240,
         "wires": [
             [
-                "d2d346d60a52fac5"
+                "d2d346d60a52fac5",
+                "2ba9fef86b20aa6b"
             ]
         ]
     },
@@ -208,12 +198,30 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 700,
+        "x": 820,
         "y": 240,
         "wires": []
     },
     {
-        "id": "a1",
+        "id": "2ba9fef86b20aa6b",
+        "type": "mqtt out",
+        "z": "0ddaa4b089a41228",
+        "name": "",
+        "topic": "data/edge5/modbus/v1",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "349d80dbd3e83831",
+        "x": 820,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "dcf6224f6982e145",
         "type": "inject",
         "z": "f1a1b1c1d1e1f1a1",
         "name": "start stream",
@@ -233,16 +241,16 @@
         "y": 100,
         "wires": [
             [
-                "a2"
+                "fe0d99fc4769bedf"
             ]
         ]
     },
     {
-        "id": "a2",
+        "id": "fe0d99fc4769bedf",
         "type": "function",
         "z": "f1a1b1c1d1e1f1a1",
         "name": "prepare ffmpeg args",
-        "func": "msg.payload = '-hide_banner -loglevel error -rtsp_transport tcp ' +\n    '-i \"rtsp://127.0.0.1:8554/webcam\" ' +\n    '-an -c copy -f mpegts pipe:1';\nreturn msg;",
+        "func": "msg.payload = [\n    '-hide_banner',\n    '-rtsp_transport', 'tcp',\n    '-i', 'rtsp://127.0.0.1:8554/webcam',\n    '-an',\n    '-c:v', 'copy',\n    '-f', 'mpegts',\n    '-mpegts_flags', 'resend_headers',\n    'pipe:1'\n].join(' ');\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -253,12 +261,12 @@
         "y": 100,
         "wires": [
             [
-                "a3"
+                "fb0e76599870241f"
             ]
         ]
     },
     {
-        "id": "a3",
+        "id": "fb0e76599870241f",
         "type": "exec",
         "z": "f1a1b1c1d1e1f1a1",
         "command": "ffmpeg",
@@ -273,15 +281,17 @@
         "y": 100,
         "wires": [
             [
-                "a4",
-                "a7"
+                "0523804cf378d0fc",
+                "c99e3e4bf3445e3d"
             ],
-            [],
+            [
+                "0e38c20c2dbee79e"
+            ],
             []
         ]
     },
     {
-        "id": "a4",
+        "id": "0523804cf378d0fc",
         "type": "function",
         "z": "f1a1b1c1d1e1f1a1",
         "name": "chunk info",
@@ -292,41 +302,16 @@
         "y": 80,
         "wires": [
             [
-                "a8"
+                "a3bc1380633f099c"
             ]
         ]
     },
     {
-        "id": "a7",
-        "type": "delay",
-        "z": "f1a1b1c1d1e1f1a1",
-        "name": "sample 1/5 sec",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "5",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": true,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 860,
-        "y": 160,
-        "wires": [
-            [
-                "a9"
-            ]
-        ]
-    },
-    {
-        "id": "a8",
+        "id": "a3bc1380633f099c",
         "type": "debug",
         "z": "f1a1b1c1d1e1f1a1",
         "name": "stream chunk meta",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": true,
@@ -339,47 +324,7 @@
         "wires": []
     },
     {
-        "id": "a9",
-        "type": "http request",
-        "z": "f1a1b1c1d1e1f1a1",
-        "d": true,
-        "name": "send chunk to cloud",
-        "method": "POST",
-        "ret": "txt",
-        "paytoqs": "ignore",
-        "url": "https://YOUR-CLOUD-ENDPOINT.example/ingest?id=data-edge5-video-v1",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "",
-        "senderr": false,
-        "headers": [],
-        "x": 1090,
-        "y": 160,
-        "wires": [
-            [
-                "b1"
-            ]
-        ]
-    },
-    {
-        "id": "b1",
-        "type": "debug",
-        "z": "f1a1b1c1d1e1f1a1",
-        "name": "cloud response",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "x": 1300,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "dfbb81298270d1d0",
+        "id": "a531be04bd1ac68a",
         "type": "exec",
         "z": "f1a1b1c1d1e1f1a1",
         "command": "taskkill",
@@ -399,7 +344,7 @@
         ]
     },
     {
-        "id": "7cd54e61e1944119",
+        "id": "3d5ab6790340bd3f",
         "type": "inject",
         "z": "f1a1b1c1d1e1f1a1",
         "name": "stop stream",
@@ -423,12 +368,12 @@
         "y": 380,
         "wires": [
             [
-                "5e118756b72c6f1a"
+                "38126a970b521367"
             ]
         ]
     },
     {
-        "id": "718c866ef4aacbe3",
+        "id": "c78b511d772c7dfd",
         "type": "function",
         "z": "f1a1b1c1d1e1f1a1",
         "name": "get process identifier",
@@ -446,7 +391,7 @@
         ]
     },
     {
-        "id": "5e118756b72c6f1a",
+        "id": "38126a970b521367",
         "type": "function",
         "z": "f1a1b1c1d1e1f1a1",
         "name": "prepare task killer args",
@@ -461,24 +406,59 @@
         "y": 380,
         "wires": [
             [
-                "dfbb81298270d1d0"
+                "a531be04bd1ac68a"
             ]
         ]
     },
     {
-        "id": "048a38e744556fc1",
+        "id": "f8cfdfbeddd5d4d6",
         "type": "status",
         "z": "f1a1b1c1d1e1f1a1",
         "name": "get stream status",
         "scope": [
-            "a3"
+            "fb0e76599870241f"
         ],
         "x": 120,
         "y": 240,
         "wires": [
             [
-                "718c866ef4aacbe3"
+                "c78b511d772c7dfd"
             ]
         ]
+    },
+    {
+        "id": "c99e3e4bf3445e3d",
+        "type": "mqtt out",
+        "z": "f1a1b1c1d1e1f1a1",
+        "name": "",
+        "topic": "data/edge5/video/v1",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "349d80dbd3e83831",
+        "x": 1100,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "0e38c20c2dbee79e",
+        "type": "debug",
+        "z": "f1a1b1c1d1e1f1a1",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 300,
+        "wires": []
     }
 ]
