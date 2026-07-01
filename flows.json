@@ -76,6 +76,7 @@
     {
         "id": "349d80dbd3e83831",
         "type": "mqtt-broker",
+        "d": true,
         "name": "",
         "broker": "localhost",
         "port": 1883,
@@ -149,8 +150,8 @@
         "dataType": "HoldingRegister",
         "adr": "0",
         "quantity": "125",
-        "rate": "1000",
-        "rateUnit": "ms",
+        "rate": "10",
+        "rateUnit": "s",
         "delayOnStart": false,
         "enableDeformedMessages": false,
         "startDelayTime": "",
