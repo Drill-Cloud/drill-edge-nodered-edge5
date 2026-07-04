@@ -15,6 +15,14 @@
         "info": ""
     },
     {
+        "id": "4639c393461f4977",
+        "type": "tab",
+        "label": "Несколько камер",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "9e06d9ab05f02898",
         "type": "tab",
         "label": "Эксперименты",
@@ -443,7 +451,6 @@
         "id": "a3bc1380633f099c",
         "type": "debug",
         "z": "f1a1b1c1d1e1f1a1",
-        "d": true,
         "name": "stream chunk meta",
         "active": false,
         "tosidebar": true,
@@ -608,6 +615,261 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 880,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "01243ee22442b6cd",
+        "type": "inject",
+        "z": "4639c393461f4977",
+        "name": "start stream",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "c9bb8b6d80fe296c"
+            ]
+        ]
+    },
+    {
+        "id": "c9bb8b6d80fe296c",
+        "type": "function",
+        "z": "4639c393461f4977",
+        "name": "prepare ffmpeg args",
+        "func": "msg.payload = [\n    '-hide_banner',\n    '-rtsp_transport', 'tcp',\n    '-i', 'rtsp://admin:admin@192.168.0.11:554/live/main',\n    '-an',\n    '-c:v', 'copy',\n    '-f', 'mpegts',\n    '-mpegts_flags', 'resend_headers',\n    'pipe:1'\n].join(' ');\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 140,
+        "wires": [
+            [
+                "4b04c040dcceeaa3"
+            ]
+        ]
+    },
+    {
+        "id": "4b04c040dcceeaa3",
+        "type": "exec",
+        "z": "4639c393461f4977",
+        "command": "ffmpeg",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "ffmpeg spawn",
+        "x": 580,
+        "y": 140,
+        "wires": [
+            [
+                "b2520b8ba29f0d0d"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "b2520b8ba29f0d0d",
+        "type": "mqtt out",
+        "z": "4639c393461f4977",
+        "name": "",
+        "topic": "data/edge5/video/v2/camera-11",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6130407e8235e35e",
+        "x": 850,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "22ae0d940e22c164",
+        "type": "inject",
+        "z": "4639c393461f4977",
+        "name": "start stream",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 220,
+        "wires": [
+            [
+                "49244c0ce2d6f50c"
+            ]
+        ]
+    },
+    {
+        "id": "49244c0ce2d6f50c",
+        "type": "function",
+        "z": "4639c393461f4977",
+        "name": "prepare ffmpeg args",
+        "func": "msg.payload = [\n    '-hide_banner',\n    '-rtsp_transport', 'tcp',\n    '-i', 'rtsp://admin:admin@192.168.0.12:554/live/main',\n    '-an',\n    '-c:v', 'copy',\n    '-f', 'mpegts',\n    '-mpegts_flags', 'resend_headers',\n    'pipe:1'\n].join(' ');\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 220,
+        "wires": [
+            [
+                "1117eb2ad49778f9"
+            ]
+        ]
+    },
+    {
+        "id": "1117eb2ad49778f9",
+        "type": "exec",
+        "z": "4639c393461f4977",
+        "command": "ffmpeg",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "ffmpeg spawn",
+        "x": 580,
+        "y": 220,
+        "wires": [
+            [
+                "d7ef33b544e03b47"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "d7ef33b544e03b47",
+        "type": "mqtt out",
+        "z": "4639c393461f4977",
+        "name": "",
+        "topic": "data/edge5/video/v2/camera-12",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6130407e8235e35e",
+        "x": 850,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "d875befd32f70ac8",
+        "type": "inject",
+        "z": "4639c393461f4977",
+        "name": "start stream",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 300,
+        "wires": [
+            [
+                "991a1b6ef39f3180"
+            ]
+        ]
+    },
+    {
+        "id": "991a1b6ef39f3180",
+        "type": "function",
+        "z": "4639c393461f4977",
+        "name": "prepare ffmpeg args",
+        "func": "msg.payload = [\n    '-hide_banner',\n    '-rtsp_transport', 'tcp',\n    '-i', 'rtsp://admin:admin@192.168.0.13:554/live/main',\n    '-an',\n    '-c:v', 'copy',\n    '-f', 'mpegts',\n    '-mpegts_flags', 'resend_headers',\n    'pipe:1'\n].join(' ');\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 300,
+        "wires": [
+            [
+                "8a2f5f0a47bbf456"
+            ]
+        ]
+    },
+    {
+        "id": "8a2f5f0a47bbf456",
+        "type": "exec",
+        "z": "4639c393461f4977",
+        "command": "ffmpeg",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "ffmpeg spawn",
+        "x": 580,
+        "y": 300,
+        "wires": [
+            [
+                "4e507328ac47921e"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "4e507328ac47921e",
+        "type": "mqtt out",
+        "z": "4639c393461f4977",
+        "name": "",
+        "topic": "data/edge5/video/v2/camera-13",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6130407e8235e35e",
+        "x": 850,
         "y": 300,
         "wires": []
     },
