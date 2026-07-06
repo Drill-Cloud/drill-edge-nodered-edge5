@@ -375,8 +375,8 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
+        "once": true,
+        "onceDelay": "5",
         "topic": "",
         "payload": "",
         "payloadType": "date",
@@ -634,8 +634,8 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
+        "once": true,
+        "onceDelay": "5",
         "topic": "",
         "payload": "",
         "payloadType": "date",
@@ -719,8 +719,8 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
+        "once": true,
+        "onceDelay": "5",
         "topic": "",
         "payload": "",
         "payloadType": "date",
@@ -804,8 +804,8 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
+        "once": true,
+        "onceDelay": "5",
         "topic": "",
         "payload": "",
         "payloadType": "date",
@@ -881,7 +881,6 @@
         "id": "926f26f899a87b35",
         "type": "inject",
         "z": "d21bf03e644a21ab",
-        "d": true,
         "name": "Эмулятор 125 тегов / 1 сек",
         "props": [
             {
@@ -948,7 +947,6 @@
         "id": "2ba9fef86b20aa6b",
         "type": "mqtt out",
         "z": "d21bf03e644a21ab",
-        "d": true,
         "name": "",
         "topic": "data/demo/modbus/v1",
         "qos": "",
@@ -961,6 +959,91 @@
         "broker": "349d80dbd3e83831",
         "x": 840,
         "y": 180,
+        "wires": []
+    },
+    {
+        "id": "plc-demo-inject-100-steps",
+        "type": "inject",
+        "z": "d21bf03e644a21ab",
+        "name": "PLC emulator / 1 sec",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "plc-emulator",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 300,
+        "wires": [
+            [
+                "plc-demo-function-100-steps"
+            ]
+        ]
+    },
+    {
+        "id": "plc-demo-function-100-steps",
+        "type": "function",
+        "z": "d21bf03e644a21ab",
+        "name": "PLC 100-step drilling state",
+        "func": "const TOTAL_STEPS = 100;\nconst step = (context.get(\"plcEmulatorStep\") || 0) % TOTAL_STEPS;\n\nfunction round(value) {\n    return Number(value.toFixed(3));\n}\n\nfunction wave(period, shift) {\n    return Math.sin((2 * Math.PI * (step + (shift || 0))) / period);\n}\n\nfunction limit(value, min, max) {\n    return Math.min(max, Math.max(min, value));\n}\n\nconst phase = {\n    drilling: step < 72,\n    pumpsRunning: step < 78,\n    connection: step >= 86\n};\n\nconst pumpFactor = phase.pumpsRunning ? 1 : limit(1 - (step - 78) * 0.045, 0.25, 1);\nconst wob = phase.drilling ? 13 + 2.2 * wave(31) + 0.8 * wave(9) : limit(7 - (step - 72) * 0.6, 0, 7);\nconst rop = phase.drilling ? 26 + 5 * wave(37, 5) - 0.28 * wob : 0;\nconst holeDepth = 3150 + Math.min(step, 72) * 0.055;\nconst bitPositionAboveBottom = phase.drilling ? 0.35 + 0.08 * wave(20) : 1.5 + Math.max(0, step - 72) * 0.18;\nconst bitDepth = holeDepth - bitPositionAboveBottom;\nconst pump1 = pumpFactor * (92 + 4 * wave(18));\nconst pump2 = pumpFactor * (88 + 3 * wave(21, 3));\nconst pump3 = pumpFactor * (72 + 2 * wave(25, 5));\nconst pumpSum = pump1 + pump2 + pump3;\nconst flowIn = pumpSum * 0.18;\nconst flowOut = flowIn * (0.94 + 0.018 * wave(28, 6));\nconst pressure = pumpFactor * (8.5 + pumpSum * 0.035 + wob * 0.25) + 0.35 * wave(17);\nconst gasPeak = Math.max(0, 1 - Math.abs(step - 48) / 18);\n\nconst metrics = [\n    { tag: \"hook_weight_1\", value: 205 - wob + 2.5 * wave(19) - (phase.connection ? 22 : 0) },\n    { tag: \"hookblock_position\", value: 24 - step * 0.045 + 0.25 * wave(16) },\n    { tag: \"manifold_pressure_1\", value: pressure },\n    { tag: \"outlet_flow\", value: flowOut },\n    { tag: \"inlet_flow_2\", value: flowIn },\n    { tag: \"pump_1_strokes\", value: pump1 },\n    { tag: \"pump_2_strokes\", value: pump2 },\n    { tag: \"pump_3_strokes\", value: pump3 },\n    { tag: \"pump_strokes_sum\", value: pumpSum },\n    { tag: \"weight_on_bit\", value: wob },\n    { tag: \"rate_of_penetration\", value: rop },\n    { tag: \"tool_depth\", value: bitDepth },\n    { tag: \"bottom_depth\", value: holeDepth },\n    { tag: \"bit_position_above_bottom\", value: bitPositionAboveBottom },\n    { tag: \"rotary_rpm\", value: phase.drilling ? 58 + 5 * wave(22, 4) : 0 },\n    { tag: \"rotary_torque\", value: phase.drilling ? 7 + wob * 0.75 + 1.5 * wave(13) : 0 },\n    { tag: \"top_drive_rpm\", value: phase.drilling ? 118 + 8 * wave(18) : (phase.connection ? 0 : 42 + 6 * wave(12)) },\n    { tag: \"top_drive_torque\", value: phase.drilling ? 18 + wob * 1.25 + 1.7 * wave(15, 2) : 0 },\n    { tag: \"slips_position\", value: phase.connection ? 1 : 0 },\n    { tag: \"gas_1_lfl\", value: 0.6 + gasPeak * 4.8 + 0.2 * wave(12) },\n    { tag: \"gas_1_h2s\", value: 1.2 + gasPeak * 6.2 },\n    { tag: \"outlet_temperature\", value: 44 + 1.5 * wave(55) },\n    { tag: \"inlet_temperature\", value: 31 + 0.8 * wave(70, 8) },\n    { tag: \"density_1\", value: 1.21 + 0.015 * wave(80) }\n];\n\nfor (const metric of metrics) {\n    node.send({\n        payload: JSON.stringify({\n            tag: metric.tag,\n            value: round(metric.value)\n        })\n    });\n}\n\ncontext.set(\"plcEmulatorStep\", (step + 1) % TOTAL_STEPS);\nnode.status({ fill: \"green\", shape: \"dot\", text: (step + 1) + \"/\" + TOTAL_STEPS + \", \" + metrics.length + \" tags\" });\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 300,
+        "wires": [
+            [
+                "plc-demo-debug-100-steps",
+                "plc-demo-mqtt-out-100-steps"
+            ]
+        ]
+    },
+    {
+        "id": "plc-demo-debug-100-steps",
+        "type": "debug",
+        "z": "d21bf03e644a21ab",
+        "name": "debug PLC emulator",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "plc-demo-mqtt-out-100-steps",
+        "type": "mqtt out",
+        "z": "d21bf03e644a21ab",
+        "name": "",
+        "topic": "data/demo/plc/v1",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "application/json",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "349d80dbd3e83831",
+        "x": 830,
+        "y": 340,
         "wires": []
     }
 ]
