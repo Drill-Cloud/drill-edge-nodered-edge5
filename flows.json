@@ -1145,7 +1145,7 @@
         "type": "function",
         "z": "d21bf03e644a21ab",
         "name": "prepare demo ffmpeg args",
-        "func": "const runtimeMode = env.get(\"EDGE_RUNTIME_MODE\") || \"dev\";\nconst enabled = runtimeMode === \"dev\";\n\nif (!enabled) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"demo video disabled\" });\n    return null;\n}\n\n// Start local generator: it uses ffmpeg-static from project dependencies.\n// The generator writes endless MPEG-TS/H.264 with a still frame to stdout.\nmsg.payload = \"projects/edge5/scripts/demo-video.js main\";\n\nnode.status({ fill: \"green\", shape: \"dot\", text: \"demo still main\" });\nreturn msg;",
+        "func": "const runtimeMode = env.get(\"EDGE_RUNTIME_MODE\") || \"dev\";\nconst enabled = runtimeMode === \"dev\";\n\nif (!enabled) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"demo video disabled\" });\n    return null;\n}\n\nconst scriptPath = env.get(\"DEMO_VIDEO_SCRIPT\") || \"projects/nodered-edge5/scripts/demo-video.js\";\n\n// The script reads DEMO_VIDEO_SOURCE or DEMO_VIDEO_SOURCE_<CAMERA>.\n// It writes endless MPEG-TS/H.264 to stdout for MQTT publishing.\nmsg.payload = scriptPath + \" main\";\n\nnode.status({ fill: \"green\", shape: \"dot\", text: \"demo video main\" });\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1214,7 +1214,7 @@
         "type": "function",
         "z": "d21bf03e644a21ab",
         "name": "prepare demo ffmpeg args",
-        "func": "const runtimeMode = env.get(\"EDGE_RUNTIME_MODE\") || \"dev\";\nconst enabled = runtimeMode === \"dev\";\n\nif (!enabled) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"demo video disabled\" });\n    return null;\n}\n\n// Start local generator: it uses ffmpeg-static from project dependencies.\n// The generator writes endless MPEG-TS/H.264 with a still frame to stdout.\nmsg.payload = \"projects/edge5/scripts/demo-video.js camera-11\";\n\nnode.status({ fill: \"green\", shape: \"dot\", text: \"demo still camera-11\" });\nreturn msg;",
+        "func": "const runtimeMode = env.get(\"EDGE_RUNTIME_MODE\") || \"dev\";\nconst enabled = runtimeMode === \"dev\";\n\nif (!enabled) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"demo video disabled\" });\n    return null;\n}\n\nconst scriptPath = env.get(\"DEMO_VIDEO_SCRIPT\") || \"projects/nodered-edge5/scripts/demo-video.js\";\n\n// The script reads DEMO_VIDEO_SOURCE or DEMO_VIDEO_SOURCE_<CAMERA>.\n// It writes endless MPEG-TS/H.264 to stdout for MQTT publishing.\nmsg.payload = scriptPath + \" camera-11\";\n\nnode.status({ fill: \"green\", shape: \"dot\", text: \"demo video camera-11\" });\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1283,7 +1283,7 @@
         "type": "function",
         "z": "d21bf03e644a21ab",
         "name": "prepare demo ffmpeg args",
-        "func": "const runtimeMode = env.get(\"EDGE_RUNTIME_MODE\") || \"dev\";\nconst enabled = runtimeMode === \"dev\";\n\nif (!enabled) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"demo video disabled\" });\n    return null;\n}\n\n// Start local generator: it uses ffmpeg-static from project dependencies.\n// The generator writes endless MPEG-TS/H.264 with a still frame to stdout.\nmsg.payload = \"projects/edge5/scripts/demo-video.js camera-12\";\n\nnode.status({ fill: \"green\", shape: \"dot\", text: \"demo still camera-12\" });\nreturn msg;",
+        "func": "const runtimeMode = env.get(\"EDGE_RUNTIME_MODE\") || \"dev\";\nconst enabled = runtimeMode === \"dev\";\n\nif (!enabled) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"demo video disabled\" });\n    return null;\n}\n\nconst scriptPath = env.get(\"DEMO_VIDEO_SCRIPT\") || \"projects/nodered-edge5/scripts/demo-video.js\";\n\n// The script reads DEMO_VIDEO_SOURCE or DEMO_VIDEO_SOURCE_<CAMERA>.\n// It writes endless MPEG-TS/H.264 to stdout for MQTT publishing.\nmsg.payload = scriptPath + \" camera-12\";\n\nnode.status({ fill: \"green\", shape: \"dot\", text: \"demo video camera-12\" });\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1352,7 +1352,7 @@
         "type": "function",
         "z": "d21bf03e644a21ab",
         "name": "prepare demo ffmpeg args",
-        "func": "const runtimeMode = env.get(\"EDGE_RUNTIME_MODE\") || \"dev\";\nconst enabled = runtimeMode === \"dev\";\n\nif (!enabled) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"demo video disabled\" });\n    return null;\n}\n\n// Start local generator: it uses ffmpeg-static from project dependencies.\n// The generator writes endless MPEG-TS/H.264 with a still frame to stdout.\nmsg.payload = \"projects/edge5/scripts/demo-video.js camera-13\";\n\nnode.status({ fill: \"green\", shape: \"dot\", text: \"demo still camera-13\" });\nreturn msg;",
+        "func": "const runtimeMode = env.get(\"EDGE_RUNTIME_MODE\") || \"dev\";\nconst enabled = runtimeMode === \"dev\";\n\nif (!enabled) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"demo video disabled\" });\n    return null;\n}\n\nconst scriptPath = env.get(\"DEMO_VIDEO_SCRIPT\") || \"projects/nodered-edge5/scripts/demo-video.js\";\n\n// The script reads DEMO_VIDEO_SOURCE or DEMO_VIDEO_SOURCE_<CAMERA>.\n// It writes endless MPEG-TS/H.264 to stdout for MQTT publishing.\nmsg.payload = scriptPath + \" camera-13\";\n\nnode.status({ fill: \"green\", shape: \"dot\", text: \"demo video camera-13\" });\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1529,6 +1529,110 @@
         "broker": "739e15fca49e19d1",
         "x": 990,
         "y": 780,
+        "wires": []
+    },
+    {
+        "id": "demo-video-movie-rtsp-inject",
+        "type": "inject",
+        "z": "d21bf03e644a21ab",
+        "name": "demo movie -> rtsp -> mqtt",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 920,
+        "wires": [
+            [
+                "demo-video-movie-rtsp-function"
+            ]
+        ]
+    },
+    {
+        "id": "demo-video-movie-rtsp-function",
+        "type": "function",
+        "z": "d21bf03e644a21ab",
+        "name": "prepare demo movie ffmpeg",
+        "func": "const runtimeMode = env.get(\"EDGE_RUNTIME_MODE\") || \"dev\";\nconst enabled = runtimeMode === \"dev\";\n\nif (!enabled) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"demo movie disabled\" });\n    return null;\n}\n\nconst scriptPath = env.get(\"DEMO_VIDEO_SCRIPT\") || \"projects/nodered-edge5/scripts/demo-video.js\";\n\n// Source is configured by DEMO_VIDEO_SOURCE.\n// Example: rtsp://127.0.0.1:8554/demo\nmsg.payload = scriptPath + \" my-super-video\";\n\nnode.status({ fill: \"green\", shape: \"dot\", text: \"demo movie -> MQTT\" });\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 920,
+        "wires": [
+            [
+                "demo-video-movie-rtsp-exec"
+            ]
+        ]
+    },
+    {
+        "id": "demo-video-movie-rtsp-exec",
+        "type": "exec",
+        "z": "d21bf03e644a21ab",
+        "command": "node",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "demo movie video spawn",
+        "x": 750,
+        "y": 920,
+        "wires": [
+            [
+                "demo-video-movie-rtsp-mqtt-out"
+            ],
+            [
+                "demo-video-movie-rtsp-stderr-debug"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "demo-video-movie-rtsp-stderr-debug",
+        "type": "debug",
+        "z": "d21bf03e644a21ab",
+        "name": "demo movie ffmpeg stderr",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "demo-video-movie-rtsp-mqtt-out",
+        "type": "mqtt out",
+        "z": "d21bf03e644a21ab",
+        "name": "demo movie video",
+        "topic": "data/demo/video/v2/my-super-video",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6130407e8235e35e",
+        "x": 1040,
+        "y": 900,
         "wires": []
     }
 ]
