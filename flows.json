@@ -8,16 +8,9 @@
         "env": []
     },
     {
-        "id": "f1a1b1c1d1e1f1a1",
-        "type": "tab",
-        "label": "TRASSIR RTSP capture",
-        "disabled": false,
-        "info": ""
-    },
-    {
         "id": "4639c393461f4977",
         "type": "tab",
-        "label": "Несколько камер",
+        "label": "RTSP видео захват",
         "disabled": false,
         "info": "",
         "env": []
@@ -31,106 +24,15 @@
         "env": []
     },
     {
-        "id": "d21bf03e644a21ab",
-        "type": "tab",
-        "label": "Эмуляторы",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "5da01c52b4b66842",
-        "type": "modbus-client",
-        "name": "modbus client",
-        "clienttype": "simpleser",
-        "bufferCommands": true,
-        "stateLogEnabled": false,
-        "queueLogEnabled": false,
-        "failureLogEnabled": true,
-        "tcpHost": "201.204.210.10",
-        "tcpPort": 502,
-        "tcpType": "DEFAULT",
-        "serialPort": "${MODBUS_SERIAL_PORT}",
-        "serialType": "RTU-BUFFERD",
-        "serialBaudrate": "115200",
-        "serialDatabits": 8,
-        "serialStopbits": 1,
-        "serialParity": "none",
-        "serialConnectionDelay": 100,
-        "serialAsciiResponseStartDelimiter": "0x3A",
-        "unit_id": 1,
-        "commandDelay": 1,
-        "clientTimeout": 1000,
-        "reconnectOnTimeout": true,
-        "reconnectTimeout": 2000,
-        "parallelUnitIdsAllowed": true,
-        "showErrors": false,
-        "showWarnings": true,
-        "showLogs": true
-    },
-    {
-        "id": "f8c6b094974bfa97",
-        "type": "serial-port",
-        "d": true,
-        "name": "",
-        "serialport": "${MODBUS_SERIAL_PORT}",
-        "serialbaud": "115200",
-        "databits": 8,
-        "parity": "none",
-        "stopbits": 1,
-        "waitfor": "",
-        "dtr": "none",
-        "rts": "none",
-        "cts": "none",
-        "dsr": "none",
-        "newline": "1",
-        "bin": "bin",
-        "out": "count",
-        "addchar": "",
-        "responsetimeout": 10000
-    },
-    {
-        "id": "349d80dbd3e83831",
-        "type": "mqtt-broker",
-        "d": true,
-        "name": "",
-        "broker": "localhost",
-        "port": 1883,
-        "clientid": "",
-        "autoConnect": true,
-        "usetls": false,
-        "protocolVersion": "5",
-        "keepalive": 60,
-        "cleansession": true,
-        "autoUnsubscribe": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthRetain": "false",
-        "birthPayload": "",
-        "birthMsg": {},
-        "closeTopic": "",
-        "closeQos": "0",
-        "closeRetain": "false",
-        "closePayload": "",
-        "closeMsg": {},
-        "willTopic": "",
-        "willQos": "0",
-        "willRetain": "false",
-        "willPayload": "",
-        "willMsg": {},
-        "userProps": "",
-        "sessionExpiry": ""
-    },
-    {
         "id": "6130407e8235e35e",
         "type": "mqtt-broker",
         "name": "",
-        "broker": "194.36.208.86",
+        "broker": "${DEV_MQTT_BROKER}",
         "port": 1883,
         "clientid": "",
-        "autoConnect": true,
+        "autoConnect": false,
         "usetls": false,
-        "protocolVersion": 4,
+        "protocolVersion": "5",
         "keepalive": 60,
         "cleansession": true,
         "autoUnsubscribe": true,
@@ -156,12 +58,12 @@
         "id": "739e15fca49e19d1",
         "type": "mqtt-broker",
         "name": "",
-        "broker": "localhost",
+        "broker": "drillcloud.ru",
         "port": 1883,
         "clientid": "",
-        "autoConnect": true,
+        "autoConnect": false,
         "usetls": false,
-        "protocolVersion": 4,
+        "protocolVersion": "5",
         "keepalive": 60,
         "cleansession": true,
         "autoUnsubscribe": true,
@@ -184,187 +86,81 @@
         "sessionExpiry": ""
     },
     {
-        "id": "474541cc5bf5a2aa",
-        "type": "mqtt out",
-        "z": "0ddaa4b089a41228",
-        "name": "",
-        "topic": "data/edge5/modbus/v3",
-        "qos": "",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "6130407e8235e35e",
-        "x": 860,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "9fa581602f7ad32a",
-        "type": "debug",
-        "z": "0ddaa4b089a41228",
-        "name": "Check reading",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 840,
-        "y": 80,
-        "wires": []
-    },
-    {
-        "id": "a2cc123927bfc426",
-        "type": "modbus-read",
-        "z": "0ddaa4b089a41228",
-        "d": true,
-        "name": "Modbus-Read",
-        "topic": "",
-        "showStatusActivities": false,
-        "logIOActivities": false,
+        "id": "5da01c52b4b66842",
+        "type": "modbus-client",
+        "name": "modbus client",
+        "clienttype": "simpleser",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "201.204.210.10",
+        "tcpPort": 502,
+        "tcpType": "DEFAULT",
+        "serialPort": "COM3",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "115200",
+        "serialDatabits": 8,
+        "serialStopbits": 1,
+        "serialParity": "none",
+        "serialConnectionDelay": 100,
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
         "showErrors": false,
         "showWarnings": true,
-        "unitid": "1",
-        "dataType": "HoldingRegister",
-        "adr": "0",
-        "quantity": "100",
-        "rate": "10",
-        "rateUnit": "s",
-        "delayOnStart": false,
-        "enableDeformedMessages": false,
-        "startDelayTime": "",
-        "server": "5da01c52b4b66842",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "x": 190,
-        "y": 240,
-        "wires": [
-            [
-                "2a277946ea060f15",
-                "da7be5e0e3f819ea"
-            ],
-            []
-        ]
+        "showLogs": true
     },
     {
-        "id": "2a277946ea060f15",
-        "type": "mqtt out",
+        "id": "549fe0493c188857",
+        "type": "comment",
         "z": "0ddaa4b089a41228",
-        "d": true,
-        "name": "",
-        "topic": "data/edge5i/modbus",
-        "qos": "",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "6130407e8235e35e",
-        "x": 500,
-        "y": 260,
+        "name": "README",
+        "info": "# Буровая edge5\n\nЭтот nodered-проект создан только для одного edge-компьютера \"Буровая edge5\"\n\n## Режимы\n\nНастроенный здесь проект может хранится в git-репозитории, и может быть развёрнут как на edge5 (Продакшн-режим),\nтак и на компьютере разработчика (Режим разработки).\n\nРежим разработки указывается на устройстве в переменной окружения\n```\nEDGE_RUNTIME_MODE=dev\n```\n\nВ продакшн-режиме переменные окружения могуть быть не указаны\n\n## Продакшн-режим\n\nВ продакшн-режиме на этом edge считываются только: \n\n- 24 значения с шины modbus, подсоединенной через USB эмулятор COM-порта (COM3)\n```\n{\n    fc: 3,\n    unitid: 1,\n    address: 0,\n    quantity: 24\n}\n```\n\nотправляются на топик `data/edge5/modbus/v3` mqtt-ingest брокера `mqtt://drillcloud.ru:1883`\n\n- 3 потока с камер по протоколу rtsp://\n```\n[\n  \"rtsp://admin:admin@192.168.0.11:554/live/sub\",\n  \"rtsp://admin:admin@192.168.0.12:554/live/sub\",\n  \"rtsp://admin:admin@192.168.0.13:554/live/sub\"\n]\n```\n\nотправляются на топик `data/edge5/video/v2/{camera}` mqtt-ingest брокера `mqtt://drillcloud.ru:1883`\n\nили (те же, но с лучшим качеством)\n```\n[\n  \"rtsp://admin:admin@192.168.0.11:554/live/main\",\n  \"rtsp://admin:admin@192.168.0.12:554/live/main\",\n  \"rtsp://admin:admin@192.168.0.13:554/live/main\"\n]\n```\n\n## Режим разработки\n\nВ режиме разработки реальные шина modbus недоступна, поэтому для тестирования используется узел-эмулятор.\nЭмулированные данные отправляются на топик `data/dev/modbus/v3` mqtt-ingest брокера, указанного в переменной \n```\nEDGE_MQTT_BROKER=например_localhost\n```\n\nВ режиме разработки реальные потоки видео недоступны, поэтому для тестирования используются узлы-эмуляторы\n```\nCAMERA_1=например_rtsp://localhost:8554/camera1\nCAMERA_2=например_rtsp://localhost:8554/camera2\nCAMERA_3=и_так_далее\n```\n\nЭмулированные данные отправляются на топик `data/dev/video/v2/{camera}` mqtt-ingest брокера, так же указанного в переменной EDGE_MQTT_BROKER\n\n### Как запустить у себя локальные видео потоки \n```\nmediamtx\nffmpeg -re -stream_loop -1 -i \"1.mp4\" -c copy -f rtsp rtsp://127.0.0.1:8554/video1\nffmpeg -re -stream_loop -1 -i \"2.mp4\" -c copy -f rtsp rtsp://127.0.0.1:8554/video2\n```\n\n## Requirements and Dependencies\n\nПроект использует библиотеки, которые должны быть предустановлены\n```\n\"dependencies\": {\n    \"node-red-contrib-modbus\": \"^5.45.2\",\n    \"node-red-node-serialport\": \"^2.0.3\"\n}\n```\n\nПроект использует консольное приложение `ffmpeg` для чанкования видеопотока, которое должно быть предустановлено.\n```cmd\nwinget install ffmpeg\n```",
+        "x": 120,
+        "y": 60,
         "wires": []
     },
     {
-        "id": "da7be5e0e3f819ea",
-        "type": "debug",
+        "id": "23dfd516f5b27cb6",
+        "type": "switch",
         "z": "0ddaa4b089a41228",
-        "name": "Check reading",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
+        "name": "Определение режима",
+        "property": "EDGE_RUNTIME_MODE",
+        "propertyType": "env",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "dev",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
         "x": 480,
-        "y": 200,
-        "wires": []
-    },
-    {
-        "id": "2e8188f1e143ed68",
-        "type": "modbus-read",
-        "z": "0ddaa4b089a41228",
-        "d": true,
-        "name": "Modbus-Read",
-        "topic": "",
-        "showStatusActivities": false,
-        "logIOActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "1",
-        "dataType": "HoldingRegister",
-        "adr": "0",
-        "quantity": "100",
-        "rate": "5",
-        "rateUnit": "s",
-        "delayOnStart": false,
-        "enableDeformedMessages": false,
-        "startDelayTime": "",
-        "server": "5da01c52b4b66842",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "x": 190,
         "y": 380,
         "wires": [
             [
-                "8771d151869e753d",
-                "054cdb5d7df63101"
+                "66a364ee0ffe84d7"
             ],
-            []
+            [
+                "7658151d7c407f54"
+            ]
         ]
     },
     {
-        "id": "8771d151869e753d",
-        "type": "mqtt out",
-        "z": "0ddaa4b089a41228",
-        "d": true,
-        "name": "",
-        "topic": "data/edge5cdab/modbus",
-        "qos": "",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "6130407e8235e35e",
-        "x": 510,
-        "y": 400,
-        "wires": []
-    },
-    {
-        "id": "054cdb5d7df63101",
-        "type": "debug",
-        "z": "0ddaa4b089a41228",
-        "name": "Check reading",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 480,
-        "y": 340,
-        "wires": []
-    },
-    {
-        "id": "real-modbus-v3-inject",
+        "id": "224bc8bc105f23f8",
         "type": "inject",
         "z": "0ddaa4b089a41228",
-        "name": "real Modbus poll / 5 sec",
+        "name": "Интервал считывания",
         "props": [
             {
                 "p": "payload"
@@ -373,32 +169,53 @@
         "repeat": "5",
         "crontab": "",
         "once": true,
-        "onceDelay": "5",
+        "onceDelay": "2",
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 170,
-        "y": 120,
+        "x": 210,
+        "y": 380,
         "wires": [
             [
-                "real-modbus-v3-gate"
+                "23dfd516f5b27cb6"
             ]
         ]
     },
     {
-        "id": "real-modbus-v3-gate",
+        "id": "66a364ee0ffe84d7",
         "type": "function",
         "z": "0ddaa4b089a41228",
-        "name": "real Modbus enabled?",
-        "func": "const runtimeMode = env.get(\"EDGE_RUNTIME_MODE\") || \"dev\";\nconst enabled = runtimeMode === \"prod\";\n\nif (!enabled) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"real Modbus disabled\" });\n    return null;\n}\n\nmsg.payload = {\n    fc: 3,\n    unitid: 1,\n    address: 0,\n    quantity: 24\n};\n\nreturn msg;",
+        "name": "dev: эмуляция чтения",
+        "func": "const CYCLE_MS = 10 * 60 * 1000;\nconst RAISE_S = 15;\nconst DRILL_S = 45;\nconst LOWER_S = 60;\nconst HOOK_MAX_M = 1.5;\nconst WEIGHT_MAX_KG = 40;\nconst ROTOR_RPM = 120;\nconst TICK_S = 5;\n\nfunction round(value) {\n    return Number(Number(value).toFixed(3));\n}\n\nfunction clamp(value, min, max) {\n    return Math.min(max, Math.max(min, value));\n}\n\nfunction lerp(a, b, t) {\n    return a + (b - a) * clamp(t, 0, 1);\n}\n\nfunction noise(amplitude) {\n    return (Math.random() * 2 - 1) * amplitude;\n}\n\nconst now = Date.now();\nlet t0 = context.get(\"t0\");\nif (!t0) {\n    t0 = now;\n    context.set(\"t0\", t0);\n}\n\nconst elapsedMs = (now - t0) % CYCLE_MS;\nconst t = elapsedMs / 1000;\n\nlet phase = \"idle\";\nif (t < RAISE_S) phase = \"raise\";\nelse if (t < DRILL_S) phase = \"drill\";\nelse if (t < LOWER_S) phase = \"lower\";\n\nlet wk = 0;\nlet hk = 0;\nlet nrot = 0;\nlet vsp = 0;\nlet pdk = 0;\nlet h2s = 0;\n\nif (phase === \"raise\") {\n    const p = t / RAISE_S;\n    hk = lerp(0, HOOK_MAX_M, p);\n    wk = lerp(0, WEIGHT_MAX_KG, p);\n    vsp = clamp(HOOK_MAX_M / RAISE_S + noise(0.02), 0, 1);\n} else if (phase === \"drill\") {\n    hk = HOOK_MAX_M + noise(0.01);\n    wk = WEIGHT_MAX_KG + noise(1);\n    nrot = ROTOR_RPM + noise(3);\n    vsp = 0;\n\n    let gas = context.get(\"gas\") || { pdk: 0.15, h2s: 0.15 };\n    gas.pdk = clamp(gas.pdk + noise(0.015), 0.1, 0.2);\n    gas.h2s = clamp(gas.h2s + noise(0.015), 0.1, 0.2);\n    context.set(\"gas\", gas);\n    pdk = gas.pdk;\n    h2s = gas.h2s;\n} else if (phase === \"lower\") {\n    const p = (t - DRILL_S) / (LOWER_S - DRILL_S);\n    hk = lerp(HOOK_MAX_M, 0, p);\n    wk = lerp(WEIGHT_MAX_KG, 0, p);\n    vsp = clamp(HOOK_MAX_M / (LOWER_S - DRILL_S) + noise(0.02), 0, 1);\n    nrot = 0;\n} else {\n    context.set(\"gas\", { pdk: 0.15, h2s: 0.15 });\n}\n\nlet wind = context.get(\"wind\");\nif (!wind) {\n    wind = {\n        value: Math.random() * 2,\n        target: Math.random() * 2,\n        nextChangeAt: now + (2 + Math.random() * 4) * 60 * 1000\n    };\n}\n\nif (now >= wind.nextChangeAt) {\n    wind.target = Math.random() * 2;\n    wind.nextChangeAt = now + (2 + Math.random() * 4) * 60 * 1000;\n}\n\n// ~полный диапазон за ~3 часа при тике 5 с\nconst windStep = (2 / (3 * 60 * 60)) * TICK_S;\nconst delta = wind.target - wind.value;\nif (Math.abs(delta) <= windStep) {\n    wind.value = wind.target;\n} else {\n    wind.value += Math.sign(delta) * windStep;\n}\nwind.value = clamp(wind.value, 0, 2);\ncontext.set(\"wind\", wind);\n\nmsg.payload = {\n    \"edge5-v3-wk\": round(wk),\n    \"edge5-v3-hk\": round(hk),\n    \"edge5-v3-vw\": round(wind.value),\n    \"edge5-v3-pdk\": round(pdk),\n    \"edge5-v3-h2s\": round(h2s),\n    \"edge5-v3-nrot\": round(nrot),\n    \"edge5-v3-vsp\": round(vsp)\n};\n\nconst cycleMin = Math.floor(t / 60);\nconst cycleSec = Math.floor(t % 60);\nnode.status({\n    fill: phase === \"idle\" ? \"blue\" : \"green\",\n    shape: \"dot\",\n    text: phase + \" \" + cycleMin + \":\" + String(cycleSec).padStart(2, \"0\")\n});\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 420,
-        "y": 120,
+        "x": 740,
+        "y": 340,
+        "wires": [
+            [
+                "806605f80181c05f",
+                "80536e4b7f650d83"
+            ]
+        ]
+    },
+    {
+        "id": "7658151d7c407f54",
+        "type": "function",
+        "z": "0ddaa4b089a41228",
+        "name": "prod: параметры чтения Modbus",
+        "func": "msg.payload = {\n    fc: 3,\n    unitid: 1,\n    address: 0,\n    quantity: 24\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 440,
         "wires": [
             [
                 "real-modbus-v3-flex-getter"
@@ -421,9 +238,10 @@
         "emptyMsgOnFail": false,
         "keepMsgProperties": false,
         "delayOnStart": false,
+        "enableDeformedMessages": false,
         "startDelayTime": "",
-        "x": 640,
-        "y": 120,
+        "x": 1060,
+        "y": 440,
         "wires": [
             [
                 "474541cc5bf5a2aa",
@@ -433,9 +251,881 @@
         ]
     },
     {
+        "id": "9fa581602f7ad32a",
+        "type": "debug",
+        "z": "0ddaa4b089a41228",
+        "name": "Проверка чтения",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1290,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "474541cc5bf5a2aa",
+        "type": "mqtt out",
+        "z": "0ddaa4b089a41228",
+        "name": "",
+        "topic": "data/edge5/modbus/v3",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "739e15fca49e19d1",
+        "x": 1320,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "cc8f05b3fc02a3ac",
+        "type": "inject",
+        "z": "0ddaa4b089a41228",
+        "name": "При старте",
+        "props": [
+            {
+                "p": "action",
+                "v": "connect",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "01a55a6477de472a"
+            ]
+        ]
+    },
+    {
+        "id": "01a55a6477de472a",
+        "type": "switch",
+        "z": "0ddaa4b089a41228",
+        "name": "Определение режима",
+        "property": "EDGE_RUNTIME_MODE",
+        "propertyType": "env",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "dev",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 380,
+        "y": 140,
+        "wires": [
+            [
+                "24fecab4fc88a3c5"
+            ],
+            [
+                "6b2f49ef0eccde70"
+            ]
+        ]
+    },
+    {
+        "id": "24fecab4fc88a3c5",
+        "type": "mqtt out",
+        "z": "0ddaa4b089a41228",
+        "name": "dev: подключение ${DEV_MQTT_BROKER}:1883",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6130407e8235e35e",
+        "x": 750,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "6b2f49ef0eccde70",
+        "type": "mqtt out",
+        "z": "0ddaa4b089a41228",
+        "name": "prod: подключение drillcloud.ru:1883",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "739e15fca49e19d1",
+        "x": 710,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "806605f80181c05f",
+        "type": "mqtt out",
+        "z": "0ddaa4b089a41228",
+        "name": "",
+        "topic": "data/dev/modbus/v3",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6130407e8235e35e",
+        "x": 1020,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "80536e4b7f650d83",
+        "type": "debug",
+        "z": "0ddaa4b089a41228",
+        "name": "Проверка чтения",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 990,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "01243ee22442b6cd",
+        "type": "inject",
+        "z": "4639c393461f4977",
+        "name": "При старте",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "9e3255ec0b79ed67"
+            ]
+        ]
+    },
+    {
+        "id": "c9bb8b6d80fe296c",
+        "type": "function",
+        "z": "4639c393461f4977",
+        "name": "prod: параметры ffmpeg",
+        "func": "const rtspUrl = \"rtsp://admin:admin@192.168.0.11:554/live/sub\";\n\nmsg.payload = [\n  '-hide_banner',\n  '-fflags', 'nobuffer',          // не буферировать\n  '-flags', 'low_delay',          // включить low-delay на уровне декодера\n  '-flush_packets', '1',          // сразу сбрасывать пакеты\n\n  '-rtsp_transport', 'tcp',       \n  '-i', rtspUrl,                  // rstp-поток камеры\n\n  '-an',                          // отключить аудио — нужен только видеофрейм\n  '-c:v', 'copy',                 // не перекодировать видео, просто копировать кадры\n  '-f', 'mpegts',                 // контейнер MPEG-TS для дальнейшего трансмультиплексирования\n  '-mpegts_flags', 'resend_headers', // периодически повторять заголовки для надёжного декода\n  'pipe:1'                        // выводить поток в stdout (дальше забирает mqtt транспорт)\n].join(' ');\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 220,
+        "wires": [
+            [
+                "4b04c040dcceeaa3"
+            ]
+        ]
+    },
+    {
+        "id": "4b04c040dcceeaa3",
+        "type": "exec",
+        "z": "4639c393461f4977",
+        "command": "ffmpeg",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Вызов ffmpeg",
+        "x": 920,
+        "y": 220,
+        "wires": [
+            [
+                "b2520b8ba29f0d0d"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "b2520b8ba29f0d0d",
+        "type": "mqtt out",
+        "z": "4639c393461f4977",
+        "name": "",
+        "topic": "data/edge5/video/v2/camera-12",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "739e15fca49e19d1",
+        "x": 1210,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "9e3255ec0b79ed67",
+        "type": "switch",
+        "z": "4639c393461f4977",
+        "name": "Определение режима",
+        "property": "EDGE_RUNTIME_MODE",
+        "propertyType": "env",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "dev",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 380,
+        "y": 140,
+        "wires": [
+            [
+                "9237e5121e1568d9"
+            ],
+            [
+                "c9bb8b6d80fe296c"
+            ]
+        ]
+    },
+    {
+        "id": "9237e5121e1568d9",
+        "type": "function",
+        "z": "4639c393461f4977",
+        "name": "dev: параметры ffmpeg",
+        "func": "const rtspUrl = env.get(\"DEV_CAMERA_URL1\");\n\nmsg.payload = [\n  '-hide_banner',\n  '-fflags', 'nobuffer',          // не буферировать\n  '-flags', 'low_delay',          // включить low-delay на уровне декодера\n  '-flush_packets', '1',          // сразу сбрасывать пакеты\n\n  '-rtsp_transport', 'tcp',       \n  '-i', rtspUrl,                  // rstp-поток камеры\n\n  '-an',                          // отключить аудио — нужен только видеофрейм\n  '-c:v', 'copy',                 // не перекодировать видео, просто копировать кадры\n  '-f', 'mpegts',                 // контейнер MPEG-TS для дальнейшего трансмультиплексирования\n  '-mpegts_flags', 'resend_headers', // периодически повторять заголовки для надёжного декода\n  'pipe:1'                        // выводить поток в stdout (дальше забирает mqtt транспорт)\n].join(' ');\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 100,
+        "wires": [
+            [
+                "9d8da767a2a01c50"
+            ]
+        ]
+    },
+    {
+        "id": "9d8da767a2a01c50",
+        "type": "exec",
+        "z": "4639c393461f4977",
+        "command": "ffmpeg",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Вызов ffmpeg",
+        "x": 920,
+        "y": 100,
+        "wires": [
+            [
+                "8d9574c63e7c06b4"
+            ],
+            [
+                "24708ddc1a9f0f70"
+            ],
+            [
+                "0652817c06157e9e"
+            ]
+        ]
+    },
+    {
+        "id": "8d9574c63e7c06b4",
+        "type": "mqtt out",
+        "z": "4639c393461f4977",
+        "name": "",
+        "topic": "data/dev/video/v2/camera-1",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6130407e8235e35e",
+        "x": 1200,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "c2a948e86b8b42cd",
+        "type": "inject",
+        "z": "4639c393461f4977",
+        "name": "При старте",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 400,
+        "wires": [
+            [
+                "1c96e1c55c2e0602"
+            ]
+        ]
+    },
+    {
+        "id": "fdd7a01fc494d27c",
+        "type": "function",
+        "z": "4639c393461f4977",
+        "name": "prod: параметры ffmpeg",
+        "func": "const rtspUrl = \"rtsp://admin:admin@192.168.0.12:554/live/sub\";\n\nmsg.payload = [\n  '-hide_banner',\n  '-fflags', 'nobuffer',          // не буферировать\n  '-flags', 'low_delay',          // включить low-delay на уровне декодера\n  '-flush_packets', '1',          // сразу сбрасывать пакеты\n\n  '-rtsp_transport', 'tcp',       \n  '-i', rtspUrl,                  // rstp-поток камеры\n\n  '-an',                          // отключить аудио — нужен только видеофрейм\n  '-c:v', 'copy',                 // не перекодировать видео, просто копировать кадры\n  '-f', 'mpegts',                 // контейнер MPEG-TS для дальнейшего трансмультиплексирования\n  '-mpegts_flags', 'resend_headers', // периодически повторять заголовки для надёжного декода\n  'pipe:1'                        // выводить поток в stdout (дальше забирает mqtt транспорт)\n].join(' ');\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 440,
+        "wires": [
+            [
+                "0a0f4a738f5cf3eb"
+            ]
+        ]
+    },
+    {
+        "id": "0a0f4a738f5cf3eb",
+        "type": "exec",
+        "z": "4639c393461f4977",
+        "command": "ffmpeg",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Вызов ffmpeg",
+        "x": 920,
+        "y": 440,
+        "wires": [
+            [
+                "63b4ee0663abfc0e"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "63b4ee0663abfc0e",
+        "type": "mqtt out",
+        "z": "4639c393461f4977",
+        "name": "",
+        "topic": "data/edge5/video/v2/camera-12",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "739e15fca49e19d1",
+        "x": 1210,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "1c96e1c55c2e0602",
+        "type": "switch",
+        "z": "4639c393461f4977",
+        "name": "Определение режима",
+        "property": "EDGE_RUNTIME_MODE",
+        "propertyType": "env",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "dev",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 380,
+        "y": 400,
+        "wires": [
+            [
+                "754d3120b781338e"
+            ],
+            [
+                "fdd7a01fc494d27c"
+            ]
+        ]
+    },
+    {
+        "id": "754d3120b781338e",
+        "type": "function",
+        "z": "4639c393461f4977",
+        "name": "dev: параметры ffmpeg",
+        "func": "const rtspUrl = env.get(\"DEV_CAMERA_URL2\");\n\n\nmsg.payload = [\n  '-hide_banner',\n  '-fflags', 'nobuffer',          // не буферировать\n  '-flags', 'low_delay',          // включить low-delay на уровне декодера\n  '-flush_packets', '1',          // сразу сбрасывать пакеты\n\n  '-rtsp_transport', 'tcp',       \n  '-i', rtspUrl,                  // rstp-поток камеры\n\n  '-an',                          // отключить аудио — нужен только видеофрейм\n  '-c:v', 'copy',                 // не перекодировать видео, просто копировать кадры\n  '-f', 'mpegts',                 // контейнер MPEG-TS для дальнейшего трансмультиплексирования\n  '-mpegts_flags', 'resend_headers', // периодически повторять заголовки для надёжного декода\n  'pipe:1'                        // выводить поток в stdout (дальше забирает mqtt транспорт)\n].join(' ');\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 360,
+        "wires": [
+            [
+                "7bade0af1e56f300"
+            ]
+        ]
+    },
+    {
+        "id": "7bade0af1e56f300",
+        "type": "exec",
+        "z": "4639c393461f4977",
+        "command": "ffmpeg",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Вызов ffmpeg",
+        "x": 920,
+        "y": 360,
+        "wires": [
+            [
+                "4e61367bf58cc953"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "4e61367bf58cc953",
+        "type": "mqtt out",
+        "z": "4639c393461f4977",
+        "name": "",
+        "topic": "data/dev/video/v2/camera-2",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6130407e8235e35e",
+        "x": 1200,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "12879fa0ecfe7eb4",
+        "type": "inject",
+        "z": "4639c393461f4977",
+        "name": "При старте",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 600,
+        "wires": [
+            [
+                "3c602c540b138841"
+            ]
+        ]
+    },
+    {
+        "id": "d20333f729a4d1d3",
+        "type": "function",
+        "z": "4639c393461f4977",
+        "name": "prod: параметры ffmpeg",
+        "func": "const rtspUrl = \"rtsp://admin:admin@192.168.0.13:554/live/sub\";\n\nmsg.payload = [\n  '-hide_banner',\n  '-fflags', 'nobuffer',          // не буферировать\n  '-flags', 'low_delay',          // включить low-delay на уровне декодера\n  '-flush_packets', '1',          // сразу сбрасывать пакеты\n\n  '-rtsp_transport', 'tcp',       \n  '-i', rtspUrl,                  // rstp-поток камеры\n\n  '-an',                          // отключить аудио — нужен только видеофрейм\n  '-c:v', 'copy',                 // не перекодировать видео, просто копировать кадры\n  '-f', 'mpegts',                 // контейнер MPEG-TS для дальнейшего трансмультиплексирования\n  '-mpegts_flags', 'resend_headers', // периодически повторять заголовки для надёжного декода\n  'pipe:1'                        // выводить поток в stdout (дальше забирает mqtt транспорт)\n].join(' ');\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 640,
+        "wires": [
+            [
+                "51b258e22b17dee0"
+            ]
+        ]
+    },
+    {
+        "id": "51b258e22b17dee0",
+        "type": "exec",
+        "z": "4639c393461f4977",
+        "command": "ffmpeg",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Вызов ffmpeg",
+        "x": 920,
+        "y": 640,
+        "wires": [
+            [
+                "1659998275920c06"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "1659998275920c06",
+        "type": "mqtt out",
+        "z": "4639c393461f4977",
+        "name": "",
+        "topic": "data/edge5/video/v2/camera-13",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "739e15fca49e19d1",
+        "x": 1210,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "3c602c540b138841",
+        "type": "switch",
+        "z": "4639c393461f4977",
+        "name": "Определение режима",
+        "property": "EDGE_RUNTIME_MODE",
+        "propertyType": "env",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "dev",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 380,
+        "y": 600,
+        "wires": [
+            [
+                "15548e5f679436b5"
+            ],
+            [
+                "d20333f729a4d1d3"
+            ]
+        ]
+    },
+    {
+        "id": "15548e5f679436b5",
+        "type": "function",
+        "z": "4639c393461f4977",
+        "d": true,
+        "name": "dev: параметры ffmpeg",
+        "func": "const rtspUrl = env.get(\"DEV_CAMERA_URL3\");\n\nmsg.payload = [\n  '-hide_banner',\n  '-fflags', 'nobuffer',          // не буферировать\n  '-flags', 'low_delay',          // включить low-delay на уровне декодера\n  '-flush_packets', '1',          // сразу сбрасывать пакеты\n\n  '-rtsp_transport', 'tcp',       \n  '-i', rtspUrl,                  // rstp-поток камеры\n\n  '-an',                          // отключить аудио — нужен только видеофрейм\n  '-c:v', 'copy',                 // не перекодировать видео, просто копировать кадры\n  '-f', 'mpegts',                 // контейнер MPEG-TS для дальнейшего трансмультиплексирования\n  '-mpegts_flags', 'resend_headers', // периодически повторять заголовки для надёжного декода\n  'pipe:1'                        // выводить поток в stdout (дальше забирает mqtt транспорт)\n].join(' ');\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 560,
+        "wires": [
+            [
+                "d78a4513d149431a"
+            ]
+        ]
+    },
+    {
+        "id": "d78a4513d149431a",
+        "type": "exec",
+        "z": "4639c393461f4977",
+        "command": "ffmpeg",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Вызов ffmpeg",
+        "x": 920,
+        "y": 560,
+        "wires": [
+            [
+                "e5b8ecfde91335b3"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "e5b8ecfde91335b3",
+        "type": "mqtt out",
+        "z": "4639c393461f4977",
+        "name": "",
+        "topic": "data/dev/video/v2/camera-3",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6130407e8235e35e",
+        "x": 1200,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "24708ddc1a9f0f70",
+        "type": "debug",
+        "z": "4639c393461f4977",
+        "name": "stderr",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1130,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "0652817c06157e9e",
+        "type": "debug",
+        "z": "4639c393461f4977",
+        "name": "return code",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1150,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "2a277946ea060f15",
+        "type": "mqtt out",
+        "z": "9e06d9ab05f02898",
+        "d": true,
+        "name": "",
+        "topic": "data/edge5i/modbus",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "739e15fca49e19d1",
+        "x": 440,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "da7be5e0e3f819ea",
+        "type": "debug",
+        "z": "9e06d9ab05f02898",
+        "name": "Check reading",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "8771d151869e753d",
+        "type": "mqtt out",
+        "z": "9e06d9ab05f02898",
+        "d": true,
+        "name": "",
+        "topic": "data/edge5cdab/modbus",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "739e15fca49e19d1",
+        "x": 450,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "054cdb5d7df63101",
+        "type": "debug",
+        "z": "9e06d9ab05f02898",
+        "name": "Check reading",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "a2cc123927bfc426",
+        "type": "modbus-read",
+        "z": "9e06d9ab05f02898",
+        "d": true,
+        "name": "Modbus-Read",
+        "topic": "",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "0",
+        "quantity": "100",
+        "rate": "10",
+        "rateUnit": "s",
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "server": "5da01c52b4b66842",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "x": 130,
+        "y": 100,
+        "wires": [
+            [
+                "2a277946ea060f15",
+                "da7be5e0e3f819ea"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "2e8188f1e143ed68",
+        "type": "modbus-read",
+        "z": "9e06d9ab05f02898",
+        "d": true,
+        "name": "Modbus-Read",
+        "topic": "",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "0",
+        "quantity": "100",
+        "rate": "5",
+        "rateUnit": "s",
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "server": "5da01c52b4b66842",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "x": 130,
+        "y": 240,
+        "wires": [
+            [
+                "8771d151869e753d",
+                "054cdb5d7df63101"
+            ],
+            []
+        ]
+    },
+    {
         "id": "dcf6224f6982e145",
         "type": "inject",
-        "z": "f1a1b1c1d1e1f1a1",
+        "z": "9e06d9ab05f02898",
+        "d": true,
         "name": "start stream",
         "props": [
             {
@@ -450,7 +1140,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 130,
-        "y": 100,
+        "y": 340,
         "wires": [
             [
                 "fe0d99fc4769bedf"
@@ -460,7 +1150,7 @@
     {
         "id": "fe0d99fc4769bedf",
         "type": "function",
-        "z": "f1a1b1c1d1e1f1a1",
+        "z": "9e06d9ab05f02898",
         "name": "prepare ffmpeg args",
         "func": "const runtimeMode = env.get(\"EDGE_RUNTIME_MODE\") || \"dev\";\nconst enabled = runtimeMode === \"prod\";\n\nif (!enabled) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"real video disabled\" });\n    return null;\n}\n\nconst rtspUrl = env.get(\"CAMERA_MAIN_RTSP_URL\") || \"rtsp://admin:admin@192.168.0.11:554/live/main\";\n\nmsg.payload = [\n  '-hide_banner',\n  '-fflags', 'nobuffer',          // не буферировать при probe stream info\n  '-flags', 'low_delay',          // включить low-delay на уровне декодера\n  '-flush_packets', '1',          // сразу сбрасывать пакеты, не копить их внутри muxer'а\n\n  '-rtsp_transport', 'tcp',       // тянуть RTSP по TCP (надёжнее на плохой сети)\n  '-i', rtspUrl, // main-поток камеры\n\n  '-an',                          // отключить аудио — нужен только видеофрейм\n  '-c:v', 'copy',                 // не перекодировать видео, просто копировать кадры\n  '-f', 'mpegts',                 // контейнер MPEG-TS для дальнейшего трансмультиплексирования\n  '-mpegts_flags', 'resend_headers', // периодически повторять заголовки для надёжного декода\n  'pipe:1'                        // выводить поток в stdout (дальше забирает твой транспорт)\n].join(' ');\n\nreturn msg;",
         "outputs": 1,
@@ -469,8 +1159,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
-        "y": 100,
+        "x": 340,
+        "y": 340,
         "wires": [
             [
                 "fb0e76599870241f"
@@ -480,7 +1170,7 @@
     {
         "id": "fb0e76599870241f",
         "type": "exec",
-        "z": "f1a1b1c1d1e1f1a1",
+        "z": "9e06d9ab05f02898",
         "command": "ffmpeg",
         "addpay": "payload",
         "append": "",
@@ -490,7 +1180,7 @@
         "oldrc": false,
         "name": "ffmpeg spawn",
         "x": 600,
-        "y": 100,
+        "y": 340,
         "wires": [
             [
                 "0523804cf378d0fc",
@@ -507,13 +1197,13 @@
     {
         "id": "0523804cf378d0fc",
         "type": "function",
-        "z": "f1a1b1c1d1e1f1a1",
+        "z": "9e06d9ab05f02898",
         "name": "chunk info",
         "func": "if (Buffer.isBuffer(msg.payload)) {\n    msg.chunkLength = msg.payload.length;\n    msg.payload = {\n        chunkLength: msg.chunkLength,\n        headHex: msg.payload.subarray(0, Math.min(32, msg.payload.length)).toString('hex')\n    };\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 890,
-        "y": 80,
+        "y": 320,
         "wires": [
             [
                 "a3bc1380633f099c"
@@ -523,7 +1213,7 @@
     {
         "id": "a3bc1380633f099c",
         "type": "debug",
-        "z": "f1a1b1c1d1e1f1a1",
+        "z": "9e06d9ab05f02898",
         "name": "stream chunk meta",
         "active": false,
         "tosidebar": true,
@@ -534,13 +1224,13 @@
         "statusVal": "payload",
         "statusType": "auto",
         "x": 1130,
-        "y": 80,
+        "y": 320,
         "wires": []
     },
     {
         "id": "a531be04bd1ac68a",
         "type": "exec",
-        "z": "f1a1b1c1d1e1f1a1",
+        "z": "9e06d9ab05f02898",
         "command": "taskkill",
         "addpay": "payload",
         "append": "/T /F",
@@ -550,7 +1240,7 @@
         "oldrc": false,
         "name": "ffmpeg task kill",
         "x": 600,
-        "y": 380,
+        "y": 620,
         "wires": [
             [],
             [],
@@ -560,7 +1250,7 @@
     {
         "id": "3d5ab6790340bd3f",
         "type": "inject",
-        "z": "f1a1b1c1d1e1f1a1",
+        "z": "9e06d9ab05f02898",
         "name": "stop stream",
         "props": [
             {
@@ -579,7 +1269,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 130,
-        "y": 380,
+        "y": 620,
         "wires": [
             [
                 "38126a970b521367"
@@ -589,7 +1279,7 @@
     {
         "id": "c78b511d772c7dfd",
         "type": "function",
-        "z": "f1a1b1c1d1e1f1a1",
+        "z": "9e06d9ab05f02898",
         "name": "get process identifier",
         "func": "if (msg.status && msg.status.text) {\n    const m = msg.status.text.match(/^pid:(\\d+)/);\n    if (m) {\n        flow.set(\"ffmpeg-pid\", Number(m[1]));\n    }\n}\nreturn null;",
         "outputs": 1,
@@ -599,7 +1289,7 @@
         "finalize": "",
         "libs": [],
         "x": 360,
-        "y": 240,
+        "y": 480,
         "wires": [
             []
         ]
@@ -607,7 +1297,7 @@
     {
         "id": "38126a970b521367",
         "type": "function",
-        "z": "f1a1b1c1d1e1f1a1",
+        "z": "9e06d9ab05f02898",
         "name": "prepare task killer args",
         "func": "const pid = flow.get(\"ffmpeg-pid\");\nif (!pid) {\n    node.warn(\"ffmpeg-pid not set, skip taskkill\");\n    return null;\n}\nmsg.pid = pid;\nmsg.payload = `/PID ${pid}`;\nreturn msg;",
         "outputs": 1,
@@ -617,7 +1307,7 @@
         "finalize": "",
         "libs": [],
         "x": 360,
-        "y": 380,
+        "y": 620,
         "wires": [
             [
                 "a531be04bd1ac68a"
@@ -627,13 +1317,13 @@
     {
         "id": "f8cfdfbeddd5d4d6",
         "type": "status",
-        "z": "f1a1b1c1d1e1f1a1",
+        "z": "9e06d9ab05f02898",
         "name": "get stream status",
         "scope": [
             "fb0e76599870241f"
         ],
         "x": 120,
-        "y": 240,
+        "y": 480,
         "wires": [
             [
                 "c78b511d772c7dfd"
@@ -643,7 +1333,8 @@
     {
         "id": "c99e3e4bf3445e3d",
         "type": "mqtt out",
-        "z": "f1a1b1c1d1e1f1a1",
+        "z": "9e06d9ab05f02898",
+        "d": true,
         "name": "",
         "topic": "data/edge5/video/v1",
         "qos": "",
@@ -655,13 +1346,13 @@
         "expiry": "",
         "broker": "6130407e8235e35e",
         "x": 1100,
-        "y": 160,
+        "y": 400,
         "wires": []
     },
     {
         "id": "0e38c20c2dbee79e",
         "type": "debug",
-        "z": "f1a1b1c1d1e1f1a1",
+        "z": "9e06d9ab05f02898",
         "name": "debug 1",
         "active": false,
         "tosidebar": true,
@@ -672,13 +1363,13 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 920,
-        "y": 240,
+        "y": 480,
         "wires": []
     },
     {
         "id": "1f443a59ddf02428",
         "type": "debug",
-        "z": "f1a1b1c1d1e1f1a1",
+        "z": "9e06d9ab05f02898",
         "name": "debug 2",
         "active": true,
         "tosidebar": true,
@@ -688,951 +1379,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 880,
-        "y": 300,
-        "wires": []
-    },
-    {
-        "id": "01243ee22442b6cd",
-        "type": "inject",
-        "z": "4639c393461f4977",
-        "name": "start stream",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "5",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 150,
-        "y": 140,
-        "wires": [
-            [
-                "c9bb8b6d80fe296c"
-            ]
-        ]
-    },
-    {
-        "id": "c9bb8b6d80fe296c",
-        "type": "function",
-        "z": "4639c393461f4977",
-        "name": "prepare ffmpeg args",
-        "func": "const runtimeMode = env.get(\"EDGE_RUNTIME_MODE\") || \"dev\";\nconst enabled = runtimeMode === \"prod\";\n\nif (!enabled) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"real video disabled\" });\n    return null;\n}\n\nconst rtspUrl = env.get(\"CAMERA_11_RTSP_URL\") || \"rtsp://admin:admin@192.168.0.11:554/live/sub\";\n\nmsg.payload = [\n  '-hide_banner',\n  '-fflags', 'nobuffer',          // не буферировать при probe stream info\n  '-flags', 'low_delay',          // включить low-delay на уровне декодера\n  '-analyzeduration', '100000',   // ограничить анализ потока 100 ms (уменьшить стартовую задержку)\n  '-probesize', '32768',          // зондировать только 32 KB (быстрее старт, меньше буфера)\n  '-flush_packets', '1',          // сразу сбрасывать пакеты, не копить их внутри muxer'а\n\n  '-rtsp_transport', 'tcp',       // тянуть RTSP по TCP (надёжнее на плохой сети)\n  '-i', rtspUrl, // sub-поток камеры\n\n  '-an',                          // отключить аудио — нужен только видеофрейм\n  '-c:v', 'copy',                 // не перекодировать видео, просто копировать кадры\n  '-f', 'mpegts',                 // контейнер MPEG-TS для дальнейшего трансмультиплексирования\n  '-mpegts_flags', 'resend_headers', // периодически повторять заголовки для надёжного декода\n  'pipe:1'                        // выводить поток в stdout (дальше забирает твой транспорт)\n].join(' ');\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 360,
-        "y": 140,
-        "wires": [
-            [
-                "4b04c040dcceeaa3"
-            ]
-        ]
-    },
-    {
-        "id": "4b04c040dcceeaa3",
-        "type": "exec",
-        "z": "4639c393461f4977",
-        "command": "ffmpeg",
-        "addpay": "payload",
-        "append": "",
-        "useSpawn": "true",
-        "timer": "",
-        "winHide": false,
-        "oldrc": false,
-        "name": "ffmpeg spawn",
-        "x": 580,
-        "y": 140,
-        "wires": [
-            [
-                "b2520b8ba29f0d0d"
-            ],
-            [],
-            []
-        ]
-    },
-    {
-        "id": "b2520b8ba29f0d0d",
-        "type": "mqtt out",
-        "z": "4639c393461f4977",
-        "name": "",
-        "topic": "data/edge5/video/v2/camera-11",
-        "qos": "",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "6130407e8235e35e",
-        "x": 850,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "22ae0d940e22c164",
-        "type": "inject",
-        "z": "4639c393461f4977",
-        "name": "start stream",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "5",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 150,
-        "y": 220,
-        "wires": [
-            [
-                "49244c0ce2d6f50c"
-            ]
-        ]
-    },
-    {
-        "id": "49244c0ce2d6f50c",
-        "type": "function",
-        "z": "4639c393461f4977",
-        "name": "prepare ffmpeg args",
-        "func": "const runtimeMode = env.get(\"EDGE_RUNTIME_MODE\") || \"dev\";\nconst enabled = runtimeMode === \"prod\";\n\nif (!enabled) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"real video disabled\" });\n    return null;\n}\n\nconst rtspUrl = env.get(\"CAMERA_12_RTSP_URL\") || \"rtsp://admin:admin@192.168.0.12:554/live/sub\";\n\nmsg.payload = [\n  '-hide_banner',\n  '-fflags', 'nobuffer',          // не буферировать при probe stream info\n  '-flags', 'low_delay',          // включить low-delay на уровне декодера\n  '-analyzeduration', '100000',   // ограничить анализ потока 100 ms (уменьшить стартовую задержку)\n  '-probesize', '32768',          // зондировать только 32 KB (быстрее старт, меньше буфера)\n  '-flush_packets', '1',          // сразу сбрасывать пакеты, не копить их внутри muxer'а\n\n  '-rtsp_transport', 'tcp',       // тянуть RTSP по TCP (надёжнее на плохой сети)\n  '-i', rtspUrl, // sub-поток камеры\n\n  '-an',                          // отключить аудио — нужен только видеофрейм\n  '-c:v', 'copy',                 // не перекодировать видео, просто копировать кадры\n  '-f', 'mpegts',                 // контейнер MPEG-TS для дальнейшего трансмультиплексирования\n  '-mpegts_flags', 'resend_headers', // периодически повторять заголовки для надёжного декода\n  'pipe:1'                        // выводить поток в stdout (дальше забирает твой транспорт)\n].join(' ');\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 360,
-        "y": 220,
-        "wires": [
-            [
-                "1117eb2ad49778f9"
-            ]
-        ]
-    },
-    {
-        "id": "1117eb2ad49778f9",
-        "type": "exec",
-        "z": "4639c393461f4977",
-        "command": "ffmpeg",
-        "addpay": "payload",
-        "append": "",
-        "useSpawn": "true",
-        "timer": "",
-        "winHide": false,
-        "oldrc": false,
-        "name": "ffmpeg spawn",
-        "x": 580,
-        "y": 220,
-        "wires": [
-            [
-                "d7ef33b544e03b47"
-            ],
-            [],
-            []
-        ]
-    },
-    {
-        "id": "d7ef33b544e03b47",
-        "type": "mqtt out",
-        "z": "4639c393461f4977",
-        "name": "",
-        "topic": "data/edge5/video/v2/camera-12",
-        "qos": "",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "6130407e8235e35e",
-        "x": 850,
-        "y": 220,
-        "wires": []
-    },
-    {
-        "id": "d875befd32f70ac8",
-        "type": "inject",
-        "z": "4639c393461f4977",
-        "name": "start stream",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "5",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 150,
-        "y": 300,
-        "wires": [
-            [
-                "991a1b6ef39f3180"
-            ]
-        ]
-    },
-    {
-        "id": "991a1b6ef39f3180",
-        "type": "function",
-        "z": "4639c393461f4977",
-        "name": "prepare ffmpeg args",
-        "func": "const runtimeMode = env.get(\"EDGE_RUNTIME_MODE\") || \"dev\";\nconst enabled = runtimeMode === \"prod\";\n\nif (!enabled) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"real video disabled\" });\n    return null;\n}\n\nconst rtspUrl = env.get(\"CAMERA_13_RTSP_URL\") || \"rtsp://admin:admin@192.168.0.13:554/live/sub\";\n\nmsg.payload = [\n  '-hide_banner',\n  '-fflags', 'nobuffer',          // не буферировать при probe stream info\n  '-flags', 'low_delay',          // включить low-delay на уровне декодера\n  '-analyzeduration', '100000',   // ограничить анализ потока 100 ms (уменьшить стартовую задержку)\n  '-probesize', '32768',          // зондировать только 32 KB (быстрее старт, меньше буфера)\n  '-flush_packets', '1',          // сразу сбрасывать пакеты, не копить их внутри muxer'а\n\n  '-rtsp_transport', 'tcp',       // тянуть RTSP по TCP (надёжнее на плохой сети)\n  '-i', rtspUrl, // sub-поток камеры\n\n  '-an',                          // отключить аудио — нужен только видеофрейм\n  '-c:v', 'copy',                 // не перекодировать видео, просто копировать кадры\n  '-f', 'mpegts',                 // контейнер MPEG-TS для дальнейшего трансмультиплексирования\n  '-mpegts_flags', 'resend_headers', // периодически повторять заголовки для надёжного декода\n  'pipe:1'                        // выводить поток в stdout (дальше забирает твой транспорт)\n].join(' ');\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 360,
-        "y": 300,
-        "wires": [
-            [
-                "8a2f5f0a47bbf456"
-            ]
-        ]
-    },
-    {
-        "id": "8a2f5f0a47bbf456",
-        "type": "exec",
-        "z": "4639c393461f4977",
-        "command": "ffmpeg",
-        "addpay": "payload",
-        "append": "",
-        "useSpawn": "true",
-        "timer": "",
-        "winHide": false,
-        "oldrc": false,
-        "name": "ffmpeg spawn",
-        "x": 580,
-        "y": 300,
-        "wires": [
-            [
-                "4e507328ac47921e"
-            ],
-            [],
-            []
-        ]
-    },
-    {
-        "id": "4e507328ac47921e",
-        "type": "mqtt out",
-        "z": "4639c393461f4977",
-        "name": "",
-        "topic": "data/edge5/video/v2/camera-13",
-        "qos": "",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "6130407e8235e35e",
-        "x": 850,
-        "y": 300,
-        "wires": []
-    },
-    {
-        "id": "926f26f899a87b35",
-        "type": "inject",
-        "z": "d21bf03e644a21ab",
-        "name": "Эмулятор 125 тегов / 1 сек",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "1",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "1",
-        "topic": "ive-modbus-emulator",
-        "payload": "",
-        "payloadType": "date",
-        "x": 160,
-        "y": 100,
-        "wires": [
-            [
-                "f4f1f51d087db1c2"
-            ]
-        ]
-    },
-    {
-        "id": "f4f1f51d087db1c2",
-        "type": "function",
-        "z": "d21bf03e644a21ab",
-        "name": "100 итераций состояния буровой",
-        "func": "const runtimeMode = env.get(\"EDGE_RUNTIME_MODE\") || \"dev\";\nconst enabled = runtimeMode === \"dev\";\n\nif (!enabled) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"demo emulator disabled\" });\n    return null;\n}\n\nconst tagNames = [\n    \"Вес на крюке 1, тс\",\n    \"Положение крюкоблока, м\",\n    \"Давление в манифольде 1, МПа\",\n    \"Момент на гидроключе, кг*м\",\n    \"Вес на крюке 2, тс\",\n    \"Расход на выходе, %\",\n    \"Загазованность 1 (НКПР), %\",\n    \"Загазованность 1 (H2S), мг/м3\",\n    \"Загазованность 2 (H2S), мг/м3\",\n    \"Загазованность 3 (H2S), мг/м3\",\n    \"Температура на выходе, гр.C\",\n    \"Расход на входе 1, л/сек\",\n    \"Момент на ключе АКБ, кН*м\",\n    \"Момент на роторе, кН*м\",\n    \"Обороты ротора, об/мин\",\n    \"Давление в манифольде 2, МПа\",\n    \"Момент на машинном ключе, кН*м\",\n    \"Температура на входе, гр.C\",\n    \"Загазованность 4 (H2S), мг/м3\",\n    \"Плотность 1, г/см3\",\n    \"Плотность 2, г/см3\",\n    \"Плотность 3, г/см3\",\n    \"Плотность 4, г/см3\",\n    \"Плотность 5, г/см3\",\n    \"Плотность 6, г/см3\",\n    \"Уровень 1, см\",\n    \"Уровень 2, см\",\n    \"Уровень 3, см\",\n    \"Уровень 4, см\",\n    \"Уровень 5, см\",\n    \"Уровень 6, см\",\n    \"Объем 1, м3\",\n    \"Объем 2, м3\",\n    \"Объем 3, м3\",\n    \"Объем 4, м3\",\n    \"Объем 5, м3\",\n    \"Объем 6, м3\",\n    \"Объем суммарный, м3\",\n    \"Нагрузка на долото, тс\",\n    \"Скорость проходки, м/ч\",\n    \"Скорость СПО, м/с\",\n    \"Глубина инструмента, м\",\n    \"Глубина забоя, м\",\n    \"Изм. расхода на выходе, %\",\n    \"Подача свечи, м\",\n    \"Количество опущенных свеч\",\n    \"Расход на входе 2, л/сек\",\n    \"Положение клиньев\",\n    \"Загазованность 2 (НКПР), %\",\n    \"Уровень 7, см\",\n    \"Объем 7, м3\",\n    \"Обороты СВП, об/мин\",\n    \"Крутящий момент СВП, кНм\",\n    \"Уровень 8, см\",\n    \"Объем 8, м3\",\n    \"Ходы насоса 1, ход/мин\",\n    \"Ходы насоса 2, ход/мин\",\n    \"Сумма ходов насосов, ход/мин\",\n    \"Загазованность 3 (НКПР), %\",\n    \"Ходы насоса 3, ход/мин\",\n    \"Уровень 9, см\",\n    \"Объем 9, м3\",\n    \"Уровень 10, см\",\n    \"Объем 10, м3\",\n    \"Уровень 11, см\",\n    \"Объем 11, м3\",\n    \"Уровень 12, см\",\n    \"Объем 12, м3\",\n    \"Уровень 13, см\",\n    \"Объем 13, м3\",\n    \"Уровень 14, см\",\n    \"Объем 14, м3\",\n    \"Изменение суммарного объема (+/-), м3\",\n    \"Момент на ключе 1 обсадных труб, кгм\",\n    \"Момент на ключе 2 обсадных труб, кгм\",\n    \"Давление в гидросистеме ключа бурильных труб, МПа\",\n    \"Высокая/низкая скорость ключа бурильных труб\",\n    \"Секция 1 гидрораспределителя\",\n    \"Секция 2 гидрораспределителя\",\n    \"Тип ключа\",\n    \"Загазованность 4 (НКПР), %\",\n    \"Загазованность 5 (НКПР), %\",\n    \"Загазованность 6 (НКПР), %\",\n    \"Загазованность 7 (НКПР), %\",\n    \"Загазованность 8 (НКПР), %\",\n    \"Усилие в растяжке 1, кг\",\n    \"Усилие в растяжке 2, кг\",\n    \"Усилие в растяжке 3, кг\",\n    \"Усилие в растяжке 4, кг\",\n    \"Загазованность 9 (НКПР) CH4, %\",\n    \"Загазованность 10 (НКПР) CH4, %\",\n    \"Загазованность 1 (НКПР) C3H8, %\",\n    \"Загазованность 2 (НКПР) C3H8, %\",\n    \"Загазованность 3 (НКПР) C3H8, %\",\n    \"Загазованность 4 (НКПР) C3H8, %\",\n    \"Загазованность 5 (НКПР) C3H8, %\",\n    \"Загазованность 6 (НКПР) C3H8, %\",\n    \"Загазованность 7 (НКПР) C3H8, %\",\n    \"Загазованность 8 (НКПР) C3H8, %\",\n    \"Загазованность 9 (НКПР) C3H8, %\",\n    \"Загазованность 10 (НКПР) C3H8, %\",\n    \"Момент на роторе 2, кН*м\",\n    \"Плотность 7, г/см3\",\n    \"Плотность 8, г/см3\",\n    \"Плотность 9, г/см3\",\n    \"Плотность 10, г/см3\",\n    \"Положение долота над забоем, м\",\n    \"Давление насоса диспергации, МПа\",\n    \"Число ходов насоса диспергации, ход/мин\",\n    \"Расход на выходе насоса диспергации, л/с\",\n    \"Расход на выходе насоса 1, л/с\",\n    \"Расход на выходе насоса 2, л/с\",\n    \"Наработка талевого каната, час\",\n    \"Суммарный объем долива скважины при СПО, м3\",\n    \"Давление на выходе насоса 1, МПа\",\n    \"Давление на выходе насоса 2, МПа\",\n    \"Время бурения 1м проходки, час\",\n    \"Загазованность 11 (НКПР) CH4, %\",\n    \"Загазованность 12 (НКПР) CH4, %\",\n    \"Загазованность 13 (НКПР) CH4, %\",\n    \"Расход на выходе насоса 3, л/с\",\n    \"Давление на выходе насоса 3, МПа\",\n    \"Загазованность 5 (H2S), мг/м3\",\n    \"Загазованность 6 (H2S), мг/м3\",\n    \"Загазованность 7 (H2S), мг/м3\"\n];\n\nconst TOTAL_STEPS = 100;\nconst step = (context.get(\"iveEmulatorStep\") || 0) % TOTAL_STEPS;\nconst values = new Array(tagNames.length).fill(0);\n\n// Номер тега здесь такой же, как в PDF: 1..125.\nfunction set(tagNumber, value) {\n    values[tagNumber - 1] = round(value);\n}\n\nfunction round(value) {\n    return Number(value.toFixed(3));\n}\n\nfunction wave(period, shift) {\n    return Math.sin((2 * Math.PI * (step + (shift || 0))) / period);\n}\n\nfunction limit(value, min, max) {\n    return Math.min(max, Math.max(min, value));\n}\n\nfunction makeLevels(count) {\n    const levels = [];\n    for (let i = 0; i < count; i += 1) {\n        levels.push(165 + i * 2.4 + 1.8 * wave(40 + i * 3, i) - step * 0.018);\n    }\n    return levels;\n}\n\nfunction makeVolumes(levels) {\n    return levels.map((level, i) => level * (0.34 + i * 0.004));\n}\n\n// Сценарий 100 секунд: бурение, затем снижение насосов, затем соединение.\nconst phase = {\n    drilling: step < 72,\n    pumpsRunning: step < 78,\n    connection: step >= 86\n};\n\nconst drilling = {\n    wob: phase.drilling ? 13 + 2.2 * wave(31) + 0.8 * wave(9) : limit(7 - (step - 72) * 0.6, 0, 7),\n    rop: 0,\n    holeDepth: 3150 + Math.min(step, 72) * 0.055,\n    offBottom: phase.drilling ? 0.35 + 0.08 * wave(20) : 1.5 + Math.max(0, step - 72) * 0.18,\n    tripSpeed: phase.drilling ? -0.03 + 0.01 * wave(15) : (phase.connection ? 0 : 0.16 + 0.03 * wave(10)),\n    standFeed: (step % 30) * 0.32\n};\ndrilling.rop = phase.drilling ? 26 + 5 * wave(37, 5) - 0.28 * drilling.wob : 0;\ndrilling.bitDepth = drilling.holeDepth - drilling.offBottom;\ndrilling.standsDown = Math.floor(drilling.bitDepth / 27);\n\nconst rotation = {\n    rotaryRpm: phase.drilling ? 58 + 5 * wave(22, 4) : 0,\n    topDriveRpm: phase.drilling ? 118 + 8 * wave(18) : (phase.connection ? 0 : 42 + 6 * wave(12))\n};\nrotation.rotaryTorque = phase.drilling ? 7 + drilling.wob * 0.75 + rotation.rotaryRpm * 0.035 + 1.5 * wave(13) : 0;\nrotation.topDriveTorque = phase.drilling ? 18 + drilling.wob * 1.25 + 1.7 * wave(15, 2) : 0;\n\nconst pumpFactor = phase.pumpsRunning ? 1 : limit(1 - (step - 78) * 0.045, 0.25, 1);\nconst pumps = {\n    pump1: pumpFactor * (92 + 4 * wave(18)),\n    pump2: pumpFactor * (88 + 3 * wave(21, 3)),\n    pump3: pumpFactor * (72 + 2 * wave(25, 5))\n};\npumps.sum = pumps.pump1 + pumps.pump2 + pumps.pump3;\npumps.flow1 = pumps.pump1 * 0.18;\npumps.flow2 = pumps.pump2 * 0.18;\npumps.flow3 = pumps.pump3 * 0.18;\npumps.flowIn = pumps.flow1 + pumps.flow2 + pumps.flow3;\npumps.flowOut = pumps.flowIn * (0.94 + 0.018 * wave(28, 6));\npumps.flowOutPct = limit((pumps.flowOut / 55) * 100, 0, 100);\npumps.flowChangePct = 1.8 * wave(24, 3) + (step > 78 ? -2.5 : 0);\npumps.pressure = pumpFactor * (8.5 + pumps.sum * 0.035 + drilling.wob * 0.25) + 0.35 * wave(17);\n\nconst hook = {\n    position: 24 - step * 0.045 + 0.25 * wave(16),\n    weight: 205 - drilling.wob + 2.5 * wave(19) - (phase.connection ? 22 : 0)\n};\n\nconst gasPeak = Math.max(0, 1 - Math.abs(step - 48) / 18);\nconst gas = {\n    mouthNkpr: 0.6 + gasPeak * 4.8 + 0.2 * wave(12),\n    mouthH2s: 1.2 + gasPeak * 6.2,\n    underRotorH2s: 0.9 + gasPeak * 4.5,\n    floorH2s: 0.8 + gasPeak * 3.8,\n    cleaningH2s: 0.7 + gasPeak * 2.4,\n    underRotorNkpr: 0.5 + gasPeak * 3.5,\n    floorNkpr: 0.4 + gasPeak * 2.8\n};\n\nconst mud = {\n    densityBase: 1.21 + 0.015 * wave(80),\n    tempIn: 31 + 0.8 * wave(70, 8),\n    tempOut: 44 + 1.5 * wave(55)\n};\n\nconst tanks = {\n    levels: makeLevels(14)\n};\ntanks.volumes = makeVolumes(tanks.levels);\ntanks.totalVolume = tanks.volumes.slice(0, 8).reduce((sum, value) => sum + value, 0);\ntanks.deltaVolume = tanks.totalVolume - 495.744;\n\nconst connection = {\n    slips: phase.connection ? 1 : 0,\n    machineKeyTorque: phase.connection ? 34 + 8 * wave(10) : 0,\n    hydraulicKeyTorque: phase.connection ? 1150 + 220 * wave(8) : 0,\n    akbTorque: phase.connection ? 18 + 3 * wave(9) : 0,\n    keyPressure: phase.connection ? 8.5 + 1.2 * wave(7) : 0.4,\n    highLowSpeed: phase.connection ? 1 : 0,\n    section1: phase.connection && step % 12 < 6 ? 1 : 0,\n    section2: phase.connection && step % 12 >= 6 ? 1 : 0\n};\n\nconst staticValues = {\n    hookWeight2: 0,\n    flowIn1: 0,\n    manifoldPressure2: 0,\n    casingKey1: 0,\n    casingKey2: 0,\n    dispersionPressure: 0,\n    dispersionPumpStrokes: 0,\n    dispersionPumpFlow: 0\n};\n\n// Ниже основной блок для расширения: меняем или добавляем set(номер_тега, значение).\nset(1, hook.weight);\nset(2, hook.position);\nset(3, pumps.pressure);\nset(4, connection.hydraulicKeyTorque);\nset(5, staticValues.hookWeight2);\nset(6, pumps.flowOutPct);\nset(7, gas.mouthNkpr);\nset(8, gas.mouthH2s);\nset(9, gas.underRotorH2s);\nset(10, gas.floorH2s);\nset(11, mud.tempOut);\nset(12, staticValues.flowIn1);\nset(13, connection.akbTorque);\nset(14, rotation.rotaryTorque);\nset(15, rotation.rotaryRpm);\nset(16, staticValues.manifoldPressure2);\nset(17, connection.machineKeyTorque);\nset(18, mud.tempIn);\nset(19, gas.cleaningH2s);\n\nfor (let i = 0; i < 6; i += 1) set(20 + i, mud.densityBase + i * 0.006 + 0.002 * wave(30, i));\nfor (let i = 0; i < 6; i += 1) set(26 + i, tanks.levels[i]);\nfor (let i = 0; i < 6; i += 1) set(32 + i, tanks.volumes[i]);\n\nset(38, tanks.totalVolume);\nset(39, drilling.wob);\nset(40, drilling.rop);\nset(41, drilling.tripSpeed);\nset(42, drilling.bitDepth);\nset(43, drilling.holeDepth);\nset(44, pumps.flowChangePct);\nset(45, drilling.standFeed);\nset(46, drilling.standsDown);\nset(47, pumps.flowIn);\nset(48, connection.slips);\nset(49, gas.underRotorNkpr);\nset(50, tanks.levels[6]);\nset(51, tanks.volumes[6]);\nset(52, rotation.topDriveRpm);\nset(53, rotation.topDriveTorque);\nset(54, tanks.levels[7]);\nset(55, tanks.volumes[7]);\nset(56, pumps.pump1);\nset(57, pumps.pump2);\nset(58, pumps.sum);\nset(59, gas.floorNkpr);\nset(60, pumps.pump3);\n\nfor (let i = 8; i < 14; i += 1) {\n    const tag = 61 + (i - 8) * 2;\n    set(tag, tanks.levels[i]);\n    set(tag + 1, tanks.volumes[i]);\n}\n\nset(73, tanks.deltaVolume);\nset(74, staticValues.casingKey1);\nset(75, staticValues.casingKey2);\nset(76, connection.keyPressure);\nset(77, connection.highLowSpeed);\nset(78, connection.section1);\nset(79, connection.section2);\nset(80, 1);\n\nfor (let i = 0; i < 5; i += 1) set(81 + i, 0.35 + gasPeak * (2.4 - i * 0.2) + 0.05 * wave(11 + i, i));\nfor (let i = 0; i < 4; i += 1) set(86 + i, 0);\nset(90, 0);\nset(91, 0);\nfor (let i = 0; i < 10; i += 1) set(92 + i, 0.12 + gasPeak * (1.4 - i * 0.06));\n\nset(102, 0);\nfor (let i = 0; i < 4; i += 1) set(103 + i, mud.densityBase + 0.012 + i * 0.004);\nset(107, drilling.offBottom);\nset(108, staticValues.dispersionPressure);\nset(109, staticValues.dispersionPumpStrokes);\nset(110, staticValues.dispersionPumpFlow);\nset(111, pumps.flow1);\nset(112, pumps.flow2);\nset(113, 184.5 + step / 3600);\nset(114, phase.connection ? (step - 86) * 0.18 : 0);\nset(115, pumps.pressure * 0.96);\nset(116, pumps.pressure * 0.93);\nset(117, drilling.rop > 0 ? 1 / drilling.rop : 0);\nset(118, 0.16 + gasPeak * 1.1);\nset(119, 0.14 + gasPeak * 0.9);\nset(120, 0.12 + gasPeak * 0.8);\nset(121, pumps.flow3);\nset(122, pumps.pressure * 0.9);\nset(123, 0.65 + gasPeak * 2.2);\nset(124, 0.55 + gasPeak * 1.9);\nset(125, 0.45 + gasPeak * 1.5);\n\nmsg.payload = values;\nmsg.tagNames = tagNames;\nmsg.iteration = step + 1;\nmsg.scenarioLength = TOTAL_STEPS;\nmsg.emulator = \"ИВЭ Modbus-Read drilling state\";\n\ncontext.set(\"iveEmulatorStep\", (step + 1) % TOTAL_STEPS);\nnode.status({ fill: \"green\", shape: \"dot\", text: msg.iteration + \"/\" + TOTAL_STEPS + \", \" + values.length + \" tags\" });\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 490,
-        "y": 100,
-        "wires": [
-            [
-                "d2d346d60a52fac5",
-                "2ba9fef86b20aa6b"
-            ]
-        ]
-    },
-    {
-        "id": "d2d346d60a52fac5",
-        "type": "debug",
-        "z": "d21bf03e644a21ab",
-        "name": "debug эмулятор 125 тегов",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 810,
-        "y": 100,
-        "wires": []
-    },
-    {
-        "id": "2ba9fef86b20aa6b",
-        "type": "mqtt out",
-        "z": "d21bf03e644a21ab",
-        "name": "",
-        "topic": "data/demo/modbus/v1",
-        "qos": "",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "349d80dbd3e83831",
-        "x": 840,
-        "y": 180,
-        "wires": []
-    },
-    {
-        "id": "plc-demo-inject-100-steps",
-        "type": "inject",
-        "z": "d21bf03e644a21ab",
-        "name": "PLC emulator / 1 sec",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "1",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "1",
-        "topic": "plc-emulator",
-        "payload": "",
-        "payloadType": "date",
-        "x": 150,
-        "y": 300,
-        "wires": [
-            [
-                "plc-demo-function-100-steps"
-            ]
-        ]
-    },
-    {
-        "id": "plc-demo-function-100-steps",
-        "type": "function",
-        "z": "d21bf03e644a21ab",
-        "name": "PLC 100-step drilling state",
-        "func": "const runtimeMode = env.get(\"EDGE_RUNTIME_MODE\") || \"dev\";\nconst enabled = runtimeMode === \"dev\";\n\nif (!enabled) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"demo emulator disabled\" });\n    return null;\n}\n\nconst TOTAL_STEPS = 100;\nconst step = (context.get(\"plcEmulatorStep\") || 0) % TOTAL_STEPS;\n\nfunction round(value) {\n    return Number(value.toFixed(3));\n}\n\nfunction wave(period, shift) {\n    return Math.sin((2 * Math.PI * (step + (shift || 0))) / period);\n}\n\nfunction limit(value, min, max) {\n    return Math.min(max, Math.max(min, value));\n}\n\nconst phase = {\n    drilling: step < 72,\n    pumpsRunning: step < 78,\n    connection: step >= 86\n};\n\nconst pumpFactor = phase.pumpsRunning ? 1 : limit(1 - (step - 78) * 0.045, 0.25, 1);\nconst wob = phase.drilling ? 13 + 2.2 * wave(31) + 0.8 * wave(9) : limit(7 - (step - 72) * 0.6, 0, 7);\nconst rop = phase.drilling ? 26 + 5 * wave(37, 5) - 0.28 * wob : 0;\nconst holeDepth = 3150 + Math.min(step, 72) * 0.055;\nconst bitPositionAboveBottom = phase.drilling ? 0.35 + 0.08 * wave(20) : 1.5 + Math.max(0, step - 72) * 0.18;\nconst bitDepth = holeDepth - bitPositionAboveBottom;\nconst pump1 = pumpFactor * (92 + 4 * wave(18));\nconst pump2 = pumpFactor * (88 + 3 * wave(21, 3));\nconst pump3 = pumpFactor * (72 + 2 * wave(25, 5));\nconst pumpSum = pump1 + pump2 + pump3;\nconst flowIn = pumpSum * 0.18;\nconst flowOut = flowIn * (0.94 + 0.018 * wave(28, 6));\nconst pressure = pumpFactor * (8.5 + pumpSum * 0.035 + wob * 0.25) + 0.35 * wave(17);\nconst gasPeak = Math.max(0, 1 - Math.abs(step - 48) / 18);\n\nconst metrics = [\n    { tag: \"hook_weight_1\", value: 205 - wob + 2.5 * wave(19) - (phase.connection ? 22 : 0) },\n    { tag: \"hookblock_position\", value: 24 - step * 0.045 + 0.25 * wave(16) },\n    { tag: \"manifold_pressure_1\", value: pressure },\n    { tag: \"outlet_flow\", value: flowOut },\n    { tag: \"inlet_flow_2\", value: flowIn },\n    { tag: \"pump_1_strokes\", value: pump1 },\n    { tag: \"pump_2_strokes\", value: pump2 },\n    { tag: \"pump_3_strokes\", value: pump3 },\n    { tag: \"pump_strokes_sum\", value: pumpSum },\n    { tag: \"weight_on_bit\", value: wob },\n    { tag: \"rate_of_penetration\", value: rop },\n    { tag: \"tool_depth\", value: bitDepth },\n    { tag: \"bottom_depth\", value: holeDepth },\n    { tag: \"bit_position_above_bottom\", value: bitPositionAboveBottom },\n    { tag: \"rotary_rpm\", value: phase.drilling ? 58 + 5 * wave(22, 4) : 0 },\n    { tag: \"rotary_torque\", value: phase.drilling ? 7 + wob * 0.75 + 1.5 * wave(13) : 0 },\n    { tag: \"top_drive_rpm\", value: phase.drilling ? 118 + 8 * wave(18) : (phase.connection ? 0 : 42 + 6 * wave(12)) },\n    { tag: \"top_drive_torque\", value: phase.drilling ? 18 + wob * 1.25 + 1.7 * wave(15, 2) : 0 },\n    { tag: \"slips_position\", value: phase.connection ? 1 : 0 },\n    { tag: \"gas_1_lfl\", value: 0.6 + gasPeak * 4.8 + 0.2 * wave(12) },\n    { tag: \"gas_1_h2s\", value: 1.2 + gasPeak * 6.2 },\n    { tag: \"outlet_temperature\", value: 44 + 1.5 * wave(55) },\n    { tag: \"inlet_temperature\", value: 31 + 0.8 * wave(70, 8) },\n    { tag: \"density_1\", value: 1.21 + 0.015 * wave(80) }\n];\n\nfor (const metric of metrics) {\n    node.send({\n        payload: JSON.stringify({\n            tag: metric.tag,\n            value: round(metric.value)\n        })\n    });\n}\n\ncontext.set(\"plcEmulatorStep\", (step + 1) % TOTAL_STEPS);\nnode.status({ fill: \"green\", shape: \"dot\", text: (step + 1) + \"/\" + TOTAL_STEPS + \", \" + metrics.length + \" tags\" });\nreturn null;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 500,
-        "y": 300,
-        "wires": [
-            [
-                "plc-demo-debug-100-steps",
-                "plc-demo-mqtt-out-100-steps"
-            ]
-        ]
-    },
-    {
-        "id": "plc-demo-debug-100-steps",
-        "type": "debug",
-        "z": "d21bf03e644a21ab",
-        "name": "debug PLC emulator",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 820,
-        "y": 260,
-        "wires": []
-    },
-    {
-        "id": "plc-demo-mqtt-out-100-steps",
-        "type": "mqtt out",
-        "z": "d21bf03e644a21ab",
-        "name": "",
-        "topic": "data/demo/plc/v1",
-        "qos": "",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "application/json",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "349d80dbd3e83831",
-        "x": 830,
-        "y": 340,
-        "wires": []
-    },
-    {
-        "id": "demo-video-main-inject",
-        "type": "inject",
-        "z": "d21bf03e644a21ab",
-        "name": "demo video main",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "5",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 230,
-        "y": 460,
-        "wires": [
-            [
-                "demo-video-main-function"
-            ]
-        ]
-    },
-    {
-        "id": "demo-video-main-function",
-        "type": "function",
-        "z": "d21bf03e644a21ab",
-        "name": "prepare demo ffmpeg args",
-        "func": "const runtimeMode = env.get(\"EDGE_RUNTIME_MODE\") || \"dev\";\nconst enabled = runtimeMode === \"dev\";\n\nif (!enabled) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"demo video disabled\" });\n    return null;\n}\n\nconst scriptPath = env.get(\"DEMO_VIDEO_SCRIPT\") || \"projects/nodered-edge5/scripts/demo-video.js\";\n\n// The script reads DEMO_VIDEO_SOURCE or DEMO_VIDEO_SOURCE_<CAMERA>.\n// It writes endless MPEG-TS/H.264 to stdout for MQTT publishing.\nmsg.payload = scriptPath + \" main\";\n\nnode.status({ fill: \"green\", shape: \"dot\", text: \"demo video main\" });\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 480,
-        "y": 460,
-        "wires": [
-            [
-                "demo-video-main-exec"
-            ]
-        ]
-    },
-    {
-        "id": "demo-video-main-exec",
-        "type": "exec",
-        "z": "d21bf03e644a21ab",
-        "command": "node",
-        "addpay": "payload",
-        "append": "",
-        "useSpawn": "true",
-        "timer": "",
-        "winHide": false,
-        "oldrc": false,
-        "name": "demo video spawn",
-        "x": 730,
-        "y": 460,
-        "wires": [
-            [
-                "demo-video-main-mqtt-out"
-            ],
-            [
-                "demo-video-main-stderr-debug"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "demo-video-camera-11-inject",
-        "type": "inject",
-        "z": "d21bf03e644a21ab",
-        "name": "demo video camera-11",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "5",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 210,
-        "y": 580,
-        "wires": [
-            [
-                "demo-video-camera-11-function"
-            ]
-        ]
-    },
-    {
-        "id": "demo-video-camera-11-function",
-        "type": "function",
-        "z": "d21bf03e644a21ab",
-        "name": "prepare demo ffmpeg args",
-        "func": "const runtimeMode = env.get(\"EDGE_RUNTIME_MODE\") || \"dev\";\nconst enabled = runtimeMode === \"dev\";\n\nif (!enabled) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"demo video disabled\" });\n    return null;\n}\n\nconst scriptPath = env.get(\"DEMO_VIDEO_SCRIPT\") || \"projects/nodered-edge5/scripts/demo-video.js\";\n\n// The script reads DEMO_VIDEO_SOURCE or DEMO_VIDEO_SOURCE_<CAMERA>.\n// It writes endless MPEG-TS/H.264 to stdout for MQTT publishing.\nmsg.payload = scriptPath + \" camera-11\";\n\nnode.status({ fill: \"green\", shape: \"dot\", text: \"demo video camera-11\" });\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 480,
-        "y": 580,
-        "wires": [
-            [
-                "demo-video-camera-11-exec"
-            ]
-        ]
-    },
-    {
-        "id": "demo-video-camera-11-exec",
-        "type": "exec",
-        "z": "d21bf03e644a21ab",
-        "command": "node",
-        "addpay": "payload",
-        "append": "",
-        "useSpawn": "true",
-        "timer": "",
-        "winHide": false,
-        "oldrc": false,
-        "name": "demo video spawn",
-        "x": 730,
-        "y": 580,
-        "wires": [
-            [
-                "demo-video-camera-11-mqtt-out"
-            ],
-            [
-                "demo-video-camera-11-stderr-debug"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "demo-video-camera-12-inject",
-        "type": "inject",
-        "z": "d21bf03e644a21ab",
-        "name": "demo video camera-12",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "5",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 210,
-        "y": 700,
-        "wires": [
-            [
-                "demo-video-camera-12-function"
-            ]
-        ]
-    },
-    {
-        "id": "demo-video-camera-12-function",
-        "type": "function",
-        "z": "d21bf03e644a21ab",
-        "name": "prepare demo ffmpeg args",
-        "func": "const runtimeMode = env.get(\"EDGE_RUNTIME_MODE\") || \"dev\";\nconst enabled = runtimeMode === \"dev\";\n\nif (!enabled) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"demo video disabled\" });\n    return null;\n}\n\nconst scriptPath = env.get(\"DEMO_VIDEO_SCRIPT\") || \"projects/nodered-edge5/scripts/demo-video.js\";\n\n// The script reads DEMO_VIDEO_SOURCE or DEMO_VIDEO_SOURCE_<CAMERA>.\n// It writes endless MPEG-TS/H.264 to stdout for MQTT publishing.\nmsg.payload = scriptPath + \" camera-12\";\n\nnode.status({ fill: \"green\", shape: \"dot\", text: \"demo video camera-12\" });\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 480,
-        "y": 700,
-        "wires": [
-            [
-                "demo-video-camera-12-exec"
-            ]
-        ]
-    },
-    {
-        "id": "demo-video-camera-12-exec",
-        "type": "exec",
-        "z": "d21bf03e644a21ab",
-        "command": "node",
-        "addpay": "payload",
-        "append": "",
-        "useSpawn": "true",
-        "timer": "",
-        "winHide": false,
-        "oldrc": false,
-        "name": "demo video spawn",
-        "x": 730,
-        "y": 700,
-        "wires": [
-            [
-                "demo-video-camera-12-mqtt-out"
-            ],
-            [
-                "demo-video-camera-12-stderr-debug"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "demo-video-camera-13-inject",
-        "type": "inject",
-        "z": "d21bf03e644a21ab",
-        "name": "demo video camera-13",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "5",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 210,
-        "y": 820,
-        "wires": [
-            [
-                "demo-video-camera-13-function"
-            ]
-        ]
-    },
-    {
-        "id": "demo-video-camera-13-function",
-        "type": "function",
-        "z": "d21bf03e644a21ab",
-        "name": "prepare demo ffmpeg args",
-        "func": "const runtimeMode = env.get(\"EDGE_RUNTIME_MODE\") || \"dev\";\nconst enabled = runtimeMode === \"dev\";\n\nif (!enabled) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"demo video disabled\" });\n    return null;\n}\n\nconst scriptPath = env.get(\"DEMO_VIDEO_SCRIPT\") || \"projects/nodered-edge5/scripts/demo-video.js\";\n\n// The script reads DEMO_VIDEO_SOURCE or DEMO_VIDEO_SOURCE_<CAMERA>.\n// It writes endless MPEG-TS/H.264 to stdout for MQTT publishing.\nmsg.payload = scriptPath + \" camera-13\";\n\nnode.status({ fill: \"green\", shape: \"dot\", text: \"demo video camera-13\" });\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 480,
-        "y": 820,
-        "wires": [
-            [
-                "demo-video-camera-13-exec"
-            ]
-        ]
-    },
-    {
-        "id": "demo-video-camera-13-exec",
-        "type": "exec",
-        "z": "d21bf03e644a21ab",
-        "command": "node",
-        "addpay": "payload",
-        "append": "",
-        "useSpawn": "true",
-        "timer": "",
-        "winHide": false,
-        "oldrc": false,
-        "name": "demo video spawn",
-        "x": 730,
-        "y": 820,
-        "wires": [
-            [
-                "demo-video-camera-13-mqtt-out"
-            ],
-            [
-                "demo-video-camera-13-stderr-debug"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "demo-video-main-stderr-debug",
-        "type": "debug",
-        "z": "d21bf03e644a21ab",
-        "name": "demo ffmpeg stderr",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 950,
-        "y": 480,
-        "wires": []
-    },
-    {
-        "id": "demo-video-camera-11-stderr-debug",
-        "type": "debug",
-        "z": "d21bf03e644a21ab",
-        "name": "demo ffmpeg stderr",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 950,
-        "y": 600,
-        "wires": []
-    },
-    {
-        "id": "demo-video-camera-12-stderr-debug",
-        "type": "debug",
-        "z": "d21bf03e644a21ab",
-        "name": "demo ffmpeg stderr",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 950,
-        "y": 720,
-        "wires": []
-    },
-    {
-        "id": "demo-video-camera-13-stderr-debug",
-        "type": "debug",
-        "z": "d21bf03e644a21ab",
-        "name": "demo ffmpeg stderr",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 950,
-        "y": 840,
-        "wires": []
-    },
-    {
-        "id": "demo-video-main-mqtt-out",
-        "type": "mqtt out",
-        "z": "d21bf03e644a21ab",
-        "name": "",
-        "topic": "data/demo/video/v1",
-        "qos": "",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "739e15fca49e19d1",
-        "x": 950,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "demo-video-camera-11-mqtt-out",
-        "type": "mqtt out",
-        "z": "d21bf03e644a21ab",
-        "name": "",
-        "topic": "data/demo/video/v2/camera-11",
-        "qos": "",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "739e15fca49e19d1",
-        "x": 990,
         "y": 540,
-        "wires": []
-    },
-    {
-        "id": "demo-video-camera-12-mqtt-out",
-        "type": "mqtt out",
-        "z": "d21bf03e644a21ab",
-        "name": "",
-        "topic": "data/demo/video/v2/camera-12",
-        "qos": "",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "739e15fca49e19d1",
-        "x": 990,
-        "y": 660,
-        "wires": []
-    },
-    {
-        "id": "demo-video-camera-13-mqtt-out",
-        "type": "mqtt out",
-        "z": "d21bf03e644a21ab",
-        "name": "",
-        "topic": "data/demo/video/v2/camera-13",
-        "qos": "",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "739e15fca49e19d1",
-        "x": 990,
-        "y": 780,
-        "wires": []
-    },
-    {
-        "id": "demo-video-movie-rtsp-inject",
-        "type": "inject",
-        "z": "d21bf03e644a21ab",
-        "name": "demo movie -> rtsp -> mqtt",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "5",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 220,
-        "y": 920,
-        "wires": [
-            [
-                "demo-video-movie-rtsp-function"
-            ]
-        ]
-    },
-    {
-        "id": "demo-video-movie-rtsp-function",
-        "type": "function",
-        "z": "d21bf03e644a21ab",
-        "name": "prepare demo movie ffmpeg",
-        "func": "const runtimeMode = env.get(\"EDGE_RUNTIME_MODE\") || \"dev\";\nconst enabled = runtimeMode === \"dev\";\n\nif (!enabled) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"demo movie disabled\" });\n    return null;\n}\n\nconst scriptPath = env.get(\"DEMO_VIDEO_SCRIPT\") || \"projects/nodered-edge5/scripts/demo-video.js\";\n\n// Source is configured by DEMO_VIDEO_SOURCE.\n// Example: rtsp://127.0.0.1:8554/demo\nmsg.payload = scriptPath + \" my-super-video\";\n\nnode.status({ fill: \"green\", shape: \"dot\", text: \"demo movie -> MQTT\" });\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 490,
-        "y": 920,
-        "wires": [
-            [
-                "demo-video-movie-rtsp-exec"
-            ]
-        ]
-    },
-    {
-        "id": "demo-video-movie-rtsp-exec",
-        "type": "exec",
-        "z": "d21bf03e644a21ab",
-        "command": "node",
-        "addpay": "payload",
-        "append": "",
-        "useSpawn": "true",
-        "timer": "",
-        "winHide": false,
-        "oldrc": false,
-        "name": "demo movie video spawn",
-        "x": 750,
-        "y": 920,
-        "wires": [
-            [
-                "demo-video-movie-rtsp-mqtt-out"
-            ],
-            [
-                "demo-video-movie-rtsp-stderr-debug"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "demo-video-movie-rtsp-stderr-debug",
-        "type": "debug",
-        "z": "d21bf03e644a21ab",
-        "name": "demo movie ffmpeg stderr",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1010,
-        "y": 960,
-        "wires": []
-    },
-    {
-        "id": "demo-video-movie-rtsp-mqtt-out",
-        "type": "mqtt out",
-        "z": "d21bf03e644a21ab",
-        "name": "demo movie video",
-        "topic": "data/demo/video/v2/my-super-video",
-        "qos": "",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "6130407e8235e35e",
-        "x": 1040,
-        "y": 900,
         "wires": []
     }
 ]
